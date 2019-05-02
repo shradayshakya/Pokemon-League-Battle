@@ -5,9 +5,9 @@ class ViewPort{
         this.width = width;
         this.height = height;
     }
-
-    scrollTo(x , y) {
-        this.xPosition = x - this.width * 0.5;
-        this.yPosition = y - this.height * 0.5;
+    
+    updatePositions(x , y) {
+        this.xPosition = x;
+        this.yPosition = y;
     }
 }

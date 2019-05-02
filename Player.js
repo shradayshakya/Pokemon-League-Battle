@@ -1,11 +1,13 @@
 class Player {
-  constructor(xPosition, yPosition, spriteSheet, controller) {
+  constructor(xPosition, yPosition, currentRow, currentColumn, spriteSheet, controller) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
     this.spriteSheet = spriteSheet;
-    this.controller = controller;
 
-    this.DISTANCE = 1;
+    this.currentRow = currentRow;
+    this.currentColumn = currentColumn;
+
+    this.controller = controller;
 
     this.width = 64;
     this.height = 64;
@@ -26,22 +28,20 @@ class Player {
       this.scaleWidth,
       this.scaleHeight
     );
-
-    this.updatePosition();
   }
 
-  updatePosition(){
+  updateRowAndColumn(){
     if(this.controller.left){
-      this.xPosition -= this.DISTANCE;
+      this.currentColumn--;
     }
     else if(this.controller.right){
-      this.xPosition += this.DISTANCE;
+      this.currentColumn++;
     }
     else if(this.controller.up){
-      this.yPosition -= this.DISTANCE;
+      this.currentRow--;
     }
     else if(this.controller.down){
-      this.yPosition += this.DISTANCE;
+      this.currentRow++;
     }
   }
 

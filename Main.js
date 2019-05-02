@@ -11,23 +11,26 @@ class GameWorld {
     //Utility classes
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
-    this.viewPort = new ViewPort(200 , 200 , 500 , 500)
+    this.viewPort = new ViewPort(0 , 0 , 800 , 500)
 
     let leagueGateMapData = MapData.leagueGate;
     this.leagueGateMap = new Map(
       leagueGateMapData.tileArray,
       leagueGateMapData.numberOfColumns,
       leagueGateMapData.numberOfRows,
-      this.imageLoader.images.leagueGateTileSheet,
-      this.viewPort
+      this.imageLoader.images.leagueGateTileSheet
     );
 
     this.player = new Player(
       clientWidth * 0.5 - SCALE_WIDTH * 0.5,
       clientHeight * 0.5 - SCALE_HEIGHT * 0.5,
+      0,
+      0,
       this.imageLoader.images.playerSpriteSheet,
       this.controller
     );
+
+    console.log(clientWidth);
 
     this.start();
   }
@@ -43,21 +46,12 @@ class GameWorld {
   }
 
   runEngine() {
-    let leftMostVisibleColumn = Math.floor(this.viewPort.xPosition / SCALE_WIDTH);
-    let topMostVisibleRow = Math.floor(this.viewPort.yPosition / SCALE_HEIGHT);
-    let rightMostVisibleColumn = Math.ceil((this.viewPort.xPosition + this.viewPort.width) / SCALE_WIDTH );
-    let bottomMostVisibleRow = Math.ceil((this.viewPort.yPosition + this.viewPort.height) / SCALE_HEIGHT );
-
     this.updateCanvasSize();
-    this.leagueGateMap.draw(this.ctx , leftMostVisibleColumn , topMostVisibleRow , rightMostVisibleColumn , bottomMostVisibleRow);
-    
-    // this.ctx.strokeStyle = "black";
-    // this.ctx.rect(this.width * 0.5 - this.viewPort.width * 0.5 , this.height * 0.5 - this.viewPort.height * 0.5 , this.viewPort.width , this.viewPort.height);
-    // this.ctx.stroke();
-    
+    this.leagueGateMap.draw(this.ctx , this.viewPort);
+    this.player.updateRowAndColumn();
     this.player.draw(this.ctx);
     
-    this.viewPort.scrollTo(this.player.xPosition, this.player.yPosition);
+    this.viewPort.updatePositions(this.player.currentColumn, this.player.currentRow);
 
     requestAnimationFrame(() => this.runEngine());
   }
