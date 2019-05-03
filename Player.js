@@ -1,11 +1,11 @@
 class Player {
-  constructor(xPosition, yPosition, currentRow, currentColumn, spriteSheet, controller) {
+  constructor(xPosition, yPosition, offsetX, offsetY, spriteSheet, controller) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
     this.spriteSheet = spriteSheet;
 
-    this.currentRow = currentRow;
-    this.currentColumn = currentColumn;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
 
     this.controller = controller;
 
@@ -30,18 +30,18 @@ class Player {
     );
   }
 
-  updateRowAndColumn(){
+  updatePosition(){
     if(this.controller.left){
-      this.currentColumn--;
+      this.offsetX--;
     }
     else if(this.controller.right){
-      this.currentColumn++;
+      this.offsetX++;
     }
     else if(this.controller.up){
-      this.currentRow--;
+      this.offsetY--;
     }
     else if(this.controller.down){
-      this.currentRow++;
+      this.offsetY++;
     }
   }
 

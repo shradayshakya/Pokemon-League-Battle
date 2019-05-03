@@ -10,4 +10,16 @@ class ViewPort{
         this.xPosition = x;
         this.yPosition = y;
     }
+
+    
+  drawBorder(ctx){
+    ctx.lineWidth = SCALE_WIDTH;
+    ctx.strokeStyle = "white";
+    ctx.strokeRect(
+      clientWidth * 0.5 - ( this.width * 0.5 + SCALE_WIDTH * 0.5),
+      clientHeight * 0.5 - ( this.height * 0.5 + SCALE_HEIGHT * 0.5),
+      this.width + SCALE_WIDTH,
+      this.height + SCALE_HEIGHT
+    );
+  }
 }

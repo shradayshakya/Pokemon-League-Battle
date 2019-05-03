@@ -48,15 +48,15 @@ class GameWorld {
   runEngine() {
     this.updateCanvasSize();
     this.leagueGateMap.draw(this.ctx, this.viewPort);
-    this.player.updateRowAndColumn();
+    this.player.updatePosition();
     this.player.draw(this.ctx);
 
     this.viewPort.updatePositions(
-      this.player.currentColumn,
-      this.player.currentRow
+      this.player.offsetX,
+      this.player.offsetY
     );
 
-    this.drawViewPortFrame();
+    this.viewPort.drawBorder(this.ctx);
 
     requestAnimationFrame(() => this.runEngine());
   }
@@ -69,14 +69,4 @@ class GameWorld {
   }
 
 
-  drawViewPortFrame(){
-    this.ctx.lineWidth = SCALE_WIDTH;
-    this.ctx.strokeStyle = "white";
-    this.ctx.strokeRect(
-      clientWidth * 0.5 - ( this.viewPort.width * 0.5 + SCALE_WIDTH * 0.5),
-      clientHeight * 0.5 - ( this.viewPort.height * 0.5 + SCALE_HEIGHT * 0.5),
-      this.viewPort.width + SCALE_WIDTH,
-      this.viewPort.height + SCALE_HEIGHT
-    );
-  }
 }
