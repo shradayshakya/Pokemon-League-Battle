@@ -11,7 +11,7 @@ class GameWorld {
     //Utility classes
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
-    this.viewPort = new ViewPort(0 , 0 , 800 , 500)
+    this.viewPort = new ViewPort(0, 0, 800, 500);
 
     let leagueGateMapData = MapData.leagueGate;
     this.leagueGateMap = new Map(
@@ -47,11 +47,16 @@ class GameWorld {
 
   runEngine() {
     this.updateCanvasSize();
-    this.leagueGateMap.draw(this.ctx , this.viewPort);
+    this.leagueGateMap.draw(this.ctx, this.viewPort);
     this.player.updateRowAndColumn();
     this.player.draw(this.ctx);
-    
-    this.viewPort.updatePositions(this.player.currentColumn, this.player.currentRow);
+
+    this.viewPort.updatePositions(
+      this.player.currentColumn,
+      this.player.currentRow
+    );
+
+    this.drawViewPortFrame();
 
     requestAnimationFrame(() => this.runEngine());
   }
@@ -61,5 +66,17 @@ class GameWorld {
     clientHeight = document.documentElement.clientHeight;
     this.canvasElement.width = document.documentElement.clientWidth;
     this.canvasElement.height = document.documentElement.clientHeight;
+  }
+
+
+  drawViewPortFrame(){
+    this.ctx.lineWidth = SCALE_WIDTH;
+    this.ctx.strokeStyle = "white";
+    this.ctx.strokeRect(
+      clientWidth * 0.5 - ( this.viewPort.width * 0.5 + SCALE_WIDTH * 0.5),
+      clientHeight * 0.5 - ( this.viewPort.height * 0.5 + SCALE_HEIGHT * 0.5),
+      this.viewPort.width + SCALE_WIDTH,
+      this.viewPort.height + SCALE_HEIGHT
+    );
   }
 }
