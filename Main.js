@@ -30,8 +30,6 @@ class GameWorld {
       this.controller
     );
 
-    console.log(clientWidth);
-
     this.start();
   }
 

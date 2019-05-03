@@ -6,6 +6,8 @@ class Controller {
         this.down = false;
         var that = this;
 
+        this.keyDownDuration = 0;
+
         element.addEventListener("keydown", ()=>that.handleKeyDown(event,that));
         element.addEventListener("keyup", ()=>that.handleKeyUp(event,that));
     }
@@ -25,6 +27,7 @@ class Controller {
             case DOWN_ARROW:
             that.down = true;
         }
+        this.keyDownDuration++;
     }
 
     handleKeyUp(event, that){
@@ -41,5 +44,6 @@ class Controller {
             case DOWN_ARROW:
             that.down = false;
         }
+        this.keyDownDuration = 0;
     }
 }
