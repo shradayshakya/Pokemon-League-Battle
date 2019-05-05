@@ -1,30 +1,27 @@
 class GameWorld {
   constructor(canvasElement) {
     this.canvasElement = canvasElement;
+    this.ctx = this.canvasElement.getContext("2d");
+    this.updateCanvasSize();
     this.init();
   }
 
   init() {
-    this.ctx = this.canvasElement.getContext("2d");
-    this.updateCanvasSize();
-
-    //Utility classes
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
 
-    let gateMapData = MapData.gateMap;
-
     this.gateMap = new Map(
-      gateMapData.tileArray,
-      gateMapData.numberOfColumns,
-      gateMapData.numberOfRows,
-      gateMapData.secondWalkableTileValue,
-      gateMapData.exitTileValue,
+      MapData.gateMap,
       this.imageLoader.images.gateTileSheet,
       this.imageLoader.images.garyTile
     );
-    
-    this.viewPort = new ViewPort(gateMapData.initialViewportX, gateMapData.initialViewportY, 960, 500);
+
+    this.viewPort = new ViewPort(
+      this.gateMap.mapData.initialViewportX,
+      this.gateMap.mapData.initialViewportY,
+      VIEWPORT_INITIAL_WIDTH,
+      VIEWPORT_INITIAL_HEIGHT
+    );
 
     this.player = new Player(
       Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
@@ -37,21 +34,21 @@ class GameWorld {
   }
 
   start() {
-    var that = this;
-    var intervalId = setInterval(function() {
-      if (that.imageLoader.hasAllImagesLoaded()) {
+    var intervalId = setInterval(() => {
+      if (this.imageLoader.hasAllImagesLoaded()) {
         clearInterval(intervalId);
-        that.runEngine();
+        this.runEngine();
       }
     });
   }
 
   runEngine() {
     this.updateCanvasSize();
+
     this.gateMap.draw(this.ctx, this.viewPort);
     this.player.draw(this.ctx);
 
-    this.player.moveViewPort(this.gateMap, this.viewPort); 
+    this.player.moveViewPort(this.gateMap, this.viewPort);
 
     this.viewPort.drawBorder(this.ctx);
 
@@ -64,6 +61,4 @@ class GameWorld {
     this.canvasElement.width = document.documentElement.clientWidth;
     this.canvasElement.height = document.documentElement.clientHeight;
   }
-
-
 }

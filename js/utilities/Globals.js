@@ -9,3 +9,11 @@ const SCALE_HEIGHT = 48;
 
 var clientWidth;
 var clientHeight;
+
+
+var opponentTileValue = 98;
+var clefairyTileValue = 99;
+
+
+var VIEWPORT_INITIAL_WIDTH = 960 ;
+var VIEWPORT_INITIAL_HEIGHT = 500 ;
