@@ -7,7 +7,8 @@ class ImageLoader{
     }
 
     init(){
-        this.loadImage("leagueGateTileSheet", "images/scene1-tileset.png");
+        this.loadImage("testTileSheet", "images/test-tileset.png");
+        this.loadImage("garyTile", "images/gary-tile.png");
         this.loadImage("playerSpriteSheet", "images/player.png");
 
 

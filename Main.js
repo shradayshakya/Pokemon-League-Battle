@@ -13,12 +13,13 @@ class GameWorld {
     this.controller = new Controller(document);
     this.viewPort = new ViewPort(0, 0, 960, 500);
 
-    let leagueGateMapData = MapData.leagueGate;
-    this.leagueGateMap = new Map(
-      leagueGateMapData.tileArray,
-      leagueGateMapData.numberOfColumns,
-      leagueGateMapData.numberOfRows,
-      this.imageLoader.images.leagueGateTileSheet
+    let testMapData = MapData.testMap;
+    this.testMap = new Map(
+      testMapData.tileArray,
+      testMapData.numberOfColumns,
+      testMapData.numberOfRows,
+      this.imageLoader.images.testTileSheet,
+      this.imageLoader.images.garyTile
     );
 
     this.player = new Player(
@@ -45,10 +46,10 @@ class GameWorld {
 
   runEngine() {
     this.updateCanvasSize();
-    this.leagueGateMap.draw(this.ctx, this.viewPort);
+    this.testMap.draw(this.ctx, this.viewPort);
     this.player.draw(this.ctx);
 
-    this.player.moveViewPort(this.leagueGateMap, this.viewPort); 
+    this.player.moveViewPort(this.testMap, this.viewPort); 
 
     this.viewPort.drawBorder(this.ctx);
 
