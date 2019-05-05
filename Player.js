@@ -1,5 +1,5 @@
 class Player {
-  constructor(xPosition, yPosition, xIllusion, yIllusion, spriteSheet, controller) {
+  constructor(xPosition, yPosition, spriteSheet, controller) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
@@ -92,7 +92,7 @@ class Player {
 
     let mapValue = map.getCenterTileValueViaXandY( movedXPosition, movedYPosition , viewPort);
 
-    if(mapValue < 3){
+    if(mapValue == 0 || mapValue == map.secondWalkableTileValue){
       viewPort.xPosition = movedXPosition;
       viewPort.yPosition = movedYPosition;
        if(this.directionX != 0 || this.directionY != 0){

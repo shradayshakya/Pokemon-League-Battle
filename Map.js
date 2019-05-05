@@ -1,5 +1,5 @@
 class Map {
-  constructor(tileMapArray, numberOfColumns, numberOfRows, tileSheet, objectSheet) {
+  constructor(tileMapArray, numberOfColumns, numberOfRows, secondWalkableTileValue, exitTileValue, tileSheet, objectSheet) {
     this.tileWidth = 16;
     this.tileHeight = 16;
 
@@ -8,6 +8,9 @@ class Map {
 
     this.numberOfColumns = numberOfColumns;
     this.numberOfRows = numberOfRows;
+
+    this.secondWalkableTileValue = secondWalkableTileValue;
+    this.exitTile = this.exitTile;
 
     this.tileMapArray = tileMapArray;
     this.tileSheet = tileSheet; //image

@@ -11,22 +11,24 @@ class GameWorld {
     //Utility classes
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
-    this.viewPort = new ViewPort(0, 0, 960, 500);
 
-    let testMapData = MapData.testMap;
-    this.testMap = new Map(
-      testMapData.tileArray,
-      testMapData.numberOfColumns,
-      testMapData.numberOfRows,
-      this.imageLoader.images.testTileSheet,
+    let gateMapData = MapData.gateMap;
+
+    this.gateMap = new Map(
+      gateMapData.tileArray,
+      gateMapData.numberOfColumns,
+      gateMapData.numberOfRows,
+      gateMapData.secondWalkableTileValue,
+      gateMapData.exitTileValue,
+      this.imageLoader.images.gateTileSheet,
       this.imageLoader.images.garyTile
     );
+    
+    this.viewPort = new ViewPort(gateMapData.initialViewportX, gateMapData.initialViewportY, 960, 500);
 
     this.player = new Player(
       Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
       Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
-      0,
-      0,
       this.imageLoader.images.playerSpriteSheet,
       this.controller
     );
@@ -46,10 +48,10 @@ class GameWorld {
 
   runEngine() {
     this.updateCanvasSize();
-    this.testMap.draw(this.ctx, this.viewPort);
+    this.gateMap.draw(this.ctx, this.viewPort);
     this.player.draw(this.ctx);
 
-    this.player.moveViewPort(this.testMap, this.viewPort); 
+    this.player.moveViewPort(this.gateMap, this.viewPort); 
 
     this.viewPort.drawBorder(this.ctx);
 
