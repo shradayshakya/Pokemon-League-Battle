@@ -55,7 +55,7 @@ class Map {
 
         if (
           tileSheetValue == opponentTileValue ||
-          tileSheetValue == clefairyTileValue
+          tileSheetValue == chanseyTileValue
         ) {
           ctx.drawImage(
             this.objectSheet,

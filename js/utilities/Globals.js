@@ -12,7 +12,7 @@ var clientHeight;
 
 
 var opponentTileValue = 98;
-var clefairyTileValue = 99;
+var chanseyTileValue = 99;
 
 
 var VIEWPORT_INITIAL_WIDTH = 960 ;
