@@ -6,12 +6,6 @@ class ViewPort{
         this.height = height;
     }
     
-    updatePosition(x , y) {
-        this.xPosition = x;
-        this.yPosition = y;
-    }
-
-    
   drawBorder(ctx){
     ctx.lineWidth = SCALE_WIDTH;
     ctx.strokeStyle = "white";

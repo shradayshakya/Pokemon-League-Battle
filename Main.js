@@ -48,12 +48,7 @@ class GameWorld {
     this.leagueGateMap.draw(this.ctx, this.viewPort);
     this.player.draw(this.ctx);
 
-    this.player.move(this.leagueGateMap, this.viewPort); 
-
-    this.viewPort.updatePosition(
-      this.player.offsetX,
-      this.player.offsetY
-    );
+    this.player.moveViewPort(this.leagueGateMap, this.viewPort); 
 
     this.viewPort.drawBorder(this.ctx);
 

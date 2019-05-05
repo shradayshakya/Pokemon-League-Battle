@@ -1,12 +1,9 @@
 class Player {
-  constructor(xPosition, yPosition, offsetX, offsetY, spriteSheet, controller) {
+  constructor(xPosition, yPosition, xIllusion, yIllusion, spriteSheet, controller) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
     this.spriteSheet = spriteSheet;
-
-    this.offsetX = offsetX;
-    this.offsetY = offsetY;
 
     this.controller = controller;
 
@@ -87,14 +84,17 @@ class Player {
     }
   }
 
-  move(map, viewPort){
+  moveViewPort(map, viewPort){
     this.setDirection();
 
-    let mapValue = map.getCenterValue(this.offsetX + this.directionX , this.offsetY + this.directionY, viewPort);
+    let movedXPosition = viewPort.xPosition + this.directionX;
+    let movedYPosition = viewPort.yPosition + this.directionY;
+
+    let mapValue = map.getCenterTileValueViaXandY( movedXPosition, movedYPosition , viewPort);
 
     if(mapValue < 3){
-      this.offsetX += this.directionX;
-      this.offsetY += this.directionY;
+      viewPort.xPosition = movedXPosition;
+      viewPort.yPosition = movedYPosition;
        if(this.directionX != 0 || this.directionY != 0){
       this.keyDownDuration++;
     }

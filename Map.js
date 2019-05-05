@@ -24,8 +24,6 @@ class Map {
 
     let value =  this.tileMapArray[centerRow* this.numberOfColumns + centerColumn]
 
-    console.log(value)
-
     if(leftMostVisibleColumn < 0 ) leftMostVisibleColumn = 0;
     if(topMostVisibleRow < 0 ) topMostVisibleRow = 0;
     if(rightMostVisibleColumn > this.numberOfColumns) rightMostVisibleColumn = this.numberOfColumns;
@@ -58,7 +56,7 @@ class Map {
   }
 
 
-  getCenterValue(x , y, viewPort){
+  getCenterTileValueViaXandY(x , y, viewPort){
     let leftMostVisibleColumn = Math.floor(x / SCALE_WIDTH);
     let topMostVisibleRow = Math.floor(y / SCALE_HEIGHT);
     let rightMostVisibleColumn = Math.ceil((x + viewPort.width) / SCALE_WIDTH );
@@ -68,7 +66,7 @@ class Map {
     let centerRow = Math.floor((topMostVisibleRow + bottomMostVisibleRow) /2); 
 
     let value =  this.tileMapArray[centerRow* this.numberOfColumns + centerColumn]
-    console.log(value)
+
     return value;
   }
 }
