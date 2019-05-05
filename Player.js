@@ -33,6 +33,9 @@ class Player {
     this.frameChangeRate = 20;
 
     this.keyDownDuration = 0;
+
+    this.directionX = 0;
+    this.directionY = 0;
   }
 
   updateFrame(){
@@ -58,29 +61,43 @@ class Player {
     );
   }
 
-  updatePosition(){
+  setDirection(){
     if(this.controller.left){
-      this.offsetX--;
+      this.directionX = -1;
+      this.directionY =  0;
       this.rowIndexInSheet = 1;
-      this.keyDownDuration++;
     }
     else if(this.controller.right){
-      this.offsetX++;
+      this.directionX = 1;
+      this.directionY = 0;
       this.rowIndexInSheet = 2;
-      this.keyDownDuration++;
     }
     else if(this.controller.up){
-      this.offsetY--;
+      this.directionY = -1;
+      this.directionX =  0;
       this.rowIndexInSheet = 3;
-      this.keyDownDuration++;
     }
     else if(this.controller.down){
-      this.offsetY++;
+      this.directionY = 1;
+      this.directionX = 0;
       this.rowIndexInSheet = 0;
-      this.keyDownDuration++;
-    }else{
-      this.keyDownDuration = 0;
+    }else {
+      this.directionX = 0 ;
+      this.directionY = 0;
     }
   }
 
-}
+  move(map, viewPort){
+    this.setDirection();
+
+    let mapValue = map.getCenterValue(this.offsetX + this.directionX , this.offsetY + this.directionY, viewPort);
+
+    if(mapValue < 3){
+      this.offsetX += this.directionX;
+      this.offsetY += this.directionY;
+       if(this.directionX != 0 || this.directionY != 0){
+      this.keyDownDuration++;
+    }
+    }
+  }
+} 

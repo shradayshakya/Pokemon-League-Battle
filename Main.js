@@ -11,7 +11,7 @@ class GameWorld {
     //Utility classes
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
-    this.viewPort = new ViewPort(0, 0, 800, 500);
+    this.viewPort = new ViewPort(0, 0, 960, 500);
 
     let leagueGateMapData = MapData.leagueGate;
     this.leagueGateMap = new Map(
@@ -22,8 +22,8 @@ class GameWorld {
     );
 
     this.player = new Player(
-      clientWidth * 0.5 - SCALE_WIDTH * 0.5,
-      clientHeight * 0.5 - SCALE_HEIGHT * 0.5,
+      Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
+      Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
       0,
       0,
       this.imageLoader.images.playerSpriteSheet,
@@ -46,10 +46,11 @@ class GameWorld {
   runEngine() {
     this.updateCanvasSize();
     this.leagueGateMap.draw(this.ctx, this.viewPort);
-    this.player.updatePosition();
     this.player.draw(this.ctx);
 
-    this.viewPort.updatePositions(
+    this.player.move(this.leagueGateMap, this.viewPort); 
+
+    this.viewPort.updatePosition(
       this.player.offsetX,
       this.player.offsetY
     );

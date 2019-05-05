@@ -4,45 +4,41 @@ class Controller {
         this.up = false;
         this.right = false;
         this.down = false;
-        var that = this;
 
-        this.keyDownDuration = 0;
-
-        element.addEventListener("keydown", ()=>that.handleKeyDown(event,that));
-        element.addEventListener("keyup", ()=>that.handleKeyUp(event,that));
+        element.addEventListener("keydown", ()=>this.handleKeyDown(event));
+        element.addEventListener("keyup", ()=>this.handleKeyUp(event));
     }
 
 
-    handleKeyDown(event, that){
+    handleKeyDown(event){
         switch(event.keyCode){
             case LEFT_ARROW:
-            that.left = true;
+            this.left = true;
             break;
             case UP_ARROW:
-            that.up = true;
+            this.up = true;
             break;
             case RIGHT_ARROW:
-            that.right = true;
+            this.right = true;
             break;
             case DOWN_ARROW:
-            that.down = true;
+            this.down = true;
         }
-        this.keyDownDuration++;
     }
 
-    handleKeyUp(event, that){
+    handleKeyUp(event){
         switch(event.keyCode){
             case LEFT_ARROW:
-            that.left = false;
+            this.left = false;
             break;
             case UP_ARROW:
-            that.up = false;
+            this.up = false;
             break;
             case RIGHT_ARROW:
-            that.right = false;
+            this.right = false;
             break;
             case DOWN_ARROW:
-            that.down = false;
+            this.down = false;
         }
         this.keyDownDuration = 0;
     }

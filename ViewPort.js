@@ -6,7 +6,7 @@ class ViewPort{
         this.height = height;
     }
     
-    updatePositions(x , y) {
+    updatePosition(x , y) {
         this.xPosition = x;
         this.yPosition = y;
     }

@@ -19,9 +19,20 @@ class Map {
     let rightMostVisibleColumn = Math.ceil((viewPort.xPosition + viewPort.width) / SCALE_WIDTH );
     let bottomMostVisibleRow = Math.ceil((viewPort.yPosition + viewPort.height) / SCALE_HEIGHT );
 
+    let centerColumn =  Math.floor((leftMostVisibleColumn + rightMostVisibleColumn) /2);
+    let centerRow = Math.floor((topMostVisibleRow + bottomMostVisibleRow) /2); 
+
+    let value =  this.tileMapArray[centerRow* this.numberOfColumns + centerColumn]
+
+    console.log(value)
+
+    if(leftMostVisibleColumn < 0 ) leftMostVisibleColumn = 0;
+    if(topMostVisibleRow < 0 ) topMostVisibleRow = 0;
+    if(rightMostVisibleColumn > this.numberOfColumns) rightMostVisibleColumn = this.numberOfColumns;
+    if(bottomMostVisibleRow > this.numberOfRows) bottomMostVisibleRow = this.numberOfRows;
+
     for (let y = topMostVisibleRow; y < bottomMostVisibleRow; y++) {
       for (let x = leftMostVisibleColumn; x < rightMostVisibleColumn; x++) {
-        
         let tileSheetValue = this.tileMapArray[y * this.numberOfColumns + x];
         
         let clippingX = tileSheetValue * this.tileWidth;
@@ -44,5 +55,20 @@ class Map {
       }
     }
     
+  }
+
+
+  getCenterValue(x , y, viewPort){
+    let leftMostVisibleColumn = Math.floor(x / SCALE_WIDTH);
+    let topMostVisibleRow = Math.floor(y / SCALE_HEIGHT);
+    let rightMostVisibleColumn = Math.ceil((x + viewPort.width) / SCALE_WIDTH );
+    let bottomMostVisibleRow = Math.ceil((y + viewPort.height) / SCALE_HEIGHT );
+
+    let centerColumn =  Math.floor((leftMostVisibleColumn + rightMostVisibleColumn) /2);
+    let centerRow = Math.floor((topMostVisibleRow + bottomMostVisibleRow) /2); 
+
+    let value =  this.tileMapArray[centerRow* this.numberOfColumns + centerColumn]
+    console.log(value)
+    return value;
   }
 }
