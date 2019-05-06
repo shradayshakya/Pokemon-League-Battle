@@ -7,10 +7,11 @@ class GameWorld {
   }
 
   init() {
+
     this.imageLoader = new ImageLoader();
     this.controller = new Controller(document);
 
-    this.gateMap = new Map(
+    this.gateMap = new PokeMap(
       MapData.gateMap,
       this.imageLoader.images.gateTileSheet,
       this.imageLoader.images.garyTile

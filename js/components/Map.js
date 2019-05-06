@@ -1,4 +1,4 @@
-class Map {
+class PokeMap {
   constructor(mapData, tileSheet, objectSheet) {
     this.tileWidth = 16;
     this.tileHeight = 16;
