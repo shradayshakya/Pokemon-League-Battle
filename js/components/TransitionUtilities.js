@@ -25,7 +25,7 @@ class TransitionUtilities {
   nextLevel() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
-    this.gameWorldObject.updateCurrentViewPortAndMap();
+    this.gameWorldObject.refreshViewPortAndMap();
 
     let ctx = this.gameWorldObject.ctx;
 

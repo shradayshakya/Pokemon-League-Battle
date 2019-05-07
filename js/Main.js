@@ -27,7 +27,7 @@ class GameWorld {
 
     this.pokeMaps =  this.getAllMaps();
 
-    this.refreshCurrentViewPortAndMap();
+    this.refreshViewPortAndMap();
 
     this.battle = new Battle(this.viewPort,this.imageLoader,this);
 
@@ -74,7 +74,7 @@ class GameWorld {
   }
 
     
-  refreshCurrentViewPortAndMap(){
+  refreshViewPortAndMap(){
     this.currentMap = this.pokeMaps[this.currentMapIndex];
 
     this.viewPort = new ViewPort(
