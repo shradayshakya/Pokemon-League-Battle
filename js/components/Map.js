@@ -1,20 +1,31 @@
 class PokeMap {
-  constructor(mapData, tileSheet, objectSheet) {
+  constructor(
+    tileArray,
+    numberOfRows,
+    numberOfColumns,
+    secondWalkableTileValue,
+    exitTileValue,
+    initialViewportX,
+    initialViewportY,
+    tileSheet,
+    objectSheet
+  ) {
     this.tileWidth = 16;
     this.tileHeight = 16;
 
     this.tileScaleWidth = SCALE_WIDTH;
     this.tileScaleHeight = SCALE_HEIGHT;
 
-    this.mapData = mapData;
+    this.numberOfColumns = numberOfColumns;
+    this.numberOfRows = numberOfRows;
 
-    this.numberOfColumns = mapData.numberOfColumns;
-    this.numberOfRows = mapData.numberOfRows;
+    this.secondWalkableTileValue = secondWalkableTileValue;
+    this.exitTile = exitTileValue;
 
-    this.secondWalkableTileValue = mapData.secondWalkableTileValue;
-    this.exitTile = mapData.exitTileValue;
+    this.initialViewportX = initialViewportX;
+    this.initialViewportY = initialViewportY;
 
-    this.tileMapArray = mapData.tileArray;
+    this.tileMapArray = tileArray;
     this.tileSheet = tileSheet; //image
     this.objectSheet = objectSheet;
   }
@@ -29,7 +40,6 @@ class PokeMap {
       (viewPort.yPosition + viewPort.height) / SCALE_HEIGHT
     );
 
-
     if (leftMostVisibleColumn < 0) leftMostVisibleColumn = 0;
     if (topMostVisibleRow < 0) topMostVisibleRow = 0;
     if (rightMostVisibleColumn > this.numberOfColumns)
@@ -37,7 +47,6 @@ class PokeMap {
     if (bottomMostVisibleRow > this.numberOfRows)
       bottomMostVisibleRow = this.numberOfRows;
 
-      
     for (let y = topMostVisibleRow; y < bottomMostVisibleRow; y++) {
       for (let x = leftMostVisibleColumn; x < rightMostVisibleColumn; x++) {
         let tileSheetValue = this.tileMapArray[y * this.numberOfColumns + x];
@@ -68,9 +77,7 @@ class PokeMap {
             this.tileScaleWidth,
             this.tileScaleHeight
           );
-        } 
-        
-        else {
+        } else {
           let clippingX = tileSheetValue * this.tileWidth;
           let clippingY = 0;
 
@@ -90,7 +97,6 @@ class PokeMap {
     }
   }
 
-  
   getCenterTileValueViaXandY(x, y, viewPort) {
     let leftMostVisibleColumn = Math.floor(x / SCALE_WIDTH);
     let topMostVisibleRow = Math.floor(y / SCALE_HEIGHT);

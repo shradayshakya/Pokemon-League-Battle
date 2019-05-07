@@ -1,4 +1,4 @@
-class Controller {
+class PlayerController {
   constructor(element) {
     this.left = false;
     this.up = false;

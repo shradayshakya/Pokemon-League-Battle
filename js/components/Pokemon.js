@@ -1,15 +1,12 @@
 class Pokemon{
-  constructor(pokemonData){
-    this.pokemonData = pokemonData;
-
-    this.name = pokemonData.name;
-    this.hitPoints = pokemonData.hitPoints;
-    this.attack = pokemonData.attack;
-    this.defence = pokemonData.defence;
-    this.level = pokemonData.level;
-    this.moves = pokemonData.moves;
-    this.type = pokemonData.type;
-  
+  constructor(name, hitPoints, attack, defence, level, moves, type){
+    this.name = name;
+    this.hitPoints = hitPoints;
+    this.attack = attack;
+    this.defence = defence;
+    this.level = level;
+    this.moves = moves;
+    this.type = type;
   } 
 
   isStrongAgainst(testingType){

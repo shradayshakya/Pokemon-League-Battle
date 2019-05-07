@@ -1,11 +1,11 @@
 class Player {
-  constructor(xPosition, yPosition, spriteSheet, controller) {
+  constructor(xPosition, yPosition, spriteSheet) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
     this.spriteSheet = spriteSheet;
 
-    this.controller = controller;
+    this.controller = new PlayerController(document);
 
     this.scaleWidth = SCALE_WIDTH;
     this.scaleHeight = SCALE_HEIGHT;
@@ -58,7 +58,7 @@ class Player {
     );
   }
 
-  setDirection(){
+  updateDirection(){
     if(this.controller.left){
       this.directionX = -1;
       this.directionY =  0;
@@ -84,20 +84,9 @@ class Player {
     }
   }
 
-  moveViewPort(map, viewPort){
-    this.setDirection();
-
-    let movedXPosition = viewPort.xPosition + this.directionX;
-    let movedYPosition = viewPort.yPosition + this.directionY;
-
-    let mapValue = map.getCenterTileValueViaXandY( movedXPosition, movedYPosition , viewPort);
-
-    if(mapValue == 0 || mapValue == map.secondWalkableTileValue){
-      viewPort.xPosition = movedXPosition;
-      viewPort.yPosition = movedYPosition;
-       if(this.directionX != 0 || this.directionY != 0){
+  moveLegs(){
+    if(this.directionX != 0 || this.directionY != 0){
       this.keyDownDuration++;
-    }
     }
   }
 } 
