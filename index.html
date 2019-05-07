@@ -5,7 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Pokemon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="css/style.css"
+    />
 
     <script src="js/utilities/Globals.js"></script>
     <script src="js/utilities/PlayerController.js"></script>
@@ -16,6 +21,7 @@
     <script src="js/components/Map.js"></script>
     <script src="js/components/Pokemon.js"></script>
     <script src="js/components/TileWorld.js"></script>
+    <script src="js/components/TransitionUtilities.js"></script>
 
     <script src="js/data/MapData.js"></script>
     <script src="js/data/PokemonData.js"></script>
@@ -25,11 +31,7 @@
     <script src="js/Main.js"></script>
   </head>
   <body>
-
     <canvas id="gameCanvas"></canvas>
-
-
-
 
     <script type="text/javascript">
       window.addEventListener("load", function() {
@@ -37,6 +39,5 @@
         gameWorld.start();
       });
     </script>
-    
   </body>
 </html>

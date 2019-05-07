@@ -10,6 +10,8 @@ class GameWorld {
     
     this.currentMapIndex = 0;
 
+    this.currentState = TILE_WORLD_STATE;
+
     this.init();
   }
 
@@ -27,6 +29,8 @@ class GameWorld {
 
     this.updateCurrentViewPortAndMap();
 
+    this.transitionUtilities = new TransitionUtilities(this.viewPort, this);
+
     this.start();
   }
 
@@ -40,12 +44,25 @@ class GameWorld {
   }
 
   runEngine() {
+    this.mainEngine = requestAnimationFrame(() => this.runEngine());
 
     this.updateCanvasSize();
 
-    this.currentTileWorld.draw();
+    switch(this.currentState){
+      
+      case TILE_WORLD_STATE:
+      this.currentTileWorld.draw();
+      break;
 
-    requestAnimationFrame(() => this.runEngine());
+      case HEALING_STATE:
+      this.transitionUtilities.healPokemon();
+      break;
+
+      case NEXT_LEVEL_STATE:
+      this.transitionUtilities.nextLevel();
+      break;
+    }
+
   }
 
     

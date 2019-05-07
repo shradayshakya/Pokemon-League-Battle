@@ -30,5 +30,13 @@ class TileWorld{
           this.viewPort.updatePosition(movedXPosition , movedYPosition);
           this.player.moveLegs();
         }
+
+        if(mapValue == 99){
+          this.gameWorldObject.currentState = HEALING_STATE;
+        }
+
+        if(mapValue == this.pokeMap.exitTile){
+          this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
+        }
       }
 }

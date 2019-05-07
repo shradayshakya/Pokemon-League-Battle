@@ -17,3 +17,8 @@ var chanseyTileValue = 99;
 
 var VIEWPORT_INITIAL_WIDTH = 960 ;
 var VIEWPORT_INITIAL_HEIGHT = 500 ;
+
+
+var TILE_WORLD_STATE = 1;
+var HEALING_STATE = 5;
+var NEXT_LEVEL_STATE = 6
