@@ -27,7 +27,11 @@ class GameWorld {
 
     this.pokeMaps =  this.getAllMaps();
 
-    this.updateCurrentViewPortAndMap();
+    this.refreshCurrentViewPortAndMap();
+
+    this.battle = new Battle(this.viewPort,this.imageLoader,this);
+
+    
 
     this.transitionUtilities = new TransitionUtilities(this.viewPort, this);
 
@@ -54,6 +58,10 @@ class GameWorld {
       this.currentTileWorld.draw();
       break;
 
+      case BATTLE_STATE:
+      this.battle.draw();
+      break;
+
       case HEALING_STATE:
       this.transitionUtilities.healPokemon();
       break;
@@ -66,7 +74,7 @@ class GameWorld {
   }
 
     
-  updateCurrentViewPortAndMap(){
+  refreshCurrentViewPortAndMap(){
     this.currentMap = this.pokeMaps[this.currentMapIndex];
 
     this.viewPort = new ViewPort(

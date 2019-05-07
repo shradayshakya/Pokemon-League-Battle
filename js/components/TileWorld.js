@@ -30,12 +30,13 @@ class TileWorld{
           this.viewPort.updatePosition(movedXPosition , movedYPosition);
           this.player.moveLegs();
         }
-
-        if(mapValue == 99){
+        else if(mapValue == 99){
           this.gameWorldObject.currentState = HEALING_STATE;
         }
-
-        if(mapValue == this.pokeMap.exitTile){
+        else if(mapValue == 98 ){
+          this.gameWorldObject.currentState = BATTLE_STATE;
+        }
+        else if(mapValue == this.pokeMap.exitTile){
           this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
         }
       }

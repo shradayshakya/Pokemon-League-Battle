@@ -15,6 +15,7 @@ class TransitionUtilities {
       SCALE_WIDTH * 2,
       SCALE_HEIGHT * 2
     );
+    
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
       this.gameWorldObject.runEngine();
