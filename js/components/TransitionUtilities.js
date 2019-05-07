@@ -6,13 +6,14 @@ class TransitionUtilities {
 
   healPokemon() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
-
+    let pokeballImage = this.gameWorldObject.imageLoader.images.pokeball;
     let ctx = this.gameWorldObject.ctx;
-    ctx.font = "20px Arial";
-    ctx.fillText(
-      "Your pokemon is being healed...",
-      clientWidth * 0.5 - 150,
-      clientHeight * 0.5
+    ctx.drawImage(
+      pokeballImage,
+      clientWidth * 0.5 - SCALE_WIDTH,
+      clientHeight * 0.5 - SCALE_HEIGHT,
+      SCALE_WIDTH * 2,
+      SCALE_HEIGHT * 2
     );
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
@@ -26,6 +27,9 @@ class TransitionUtilities {
     this.gameWorldObject.updateCurrentViewPortAndMap();
 
     let ctx = this.gameWorldObject.ctx;
+
+    this.gameWorldObject.player.draw(ctx);
+
     ctx.globalAlpha = 0.2;
     ctx.fillStyle = "grey";
     ctx.fillRect(

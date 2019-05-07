@@ -10,6 +10,7 @@ class ImageLoader {
     this.loadImage("gateTileSheet", "images/gate-tileset.png");
     this.loadImage("garyTile", "images/gary-tile.png");
     this.loadImage("playerSpriteSheet", "images/player.png");
+    this.loadImage("pokeball", "images/pokeball.png");
 
     this.numberOfImages = Object.keys(this.images).length;
   }
