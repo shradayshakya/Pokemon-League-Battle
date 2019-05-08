@@ -15,6 +15,8 @@ class Battle {
     this.battleBackgroundImage = this.imageLoader.images.battleBackground;
     this.battleDialogueImage = this.imageLoader.images.battleDialogue;
     this.battleMovesImage = this.imageLoader.images.battleMoves;
+    this.battleInfoBarImage = this.imageLoader.images.battleInfoBar;
+    this.battleHPIndicatorImage = this.imageLoader.images.battleHPIndicator;
 
     this.backgroundWidth = this.viewPort.width;
     this.backgroundHeight = this.viewPort.height * 0.7;
@@ -41,10 +43,6 @@ class Battle {
         break;
     }
   }
-
-  
-
-
 
 
   drawOpponentIntro() {
@@ -130,6 +128,12 @@ class Battle {
     this.drawMovesDisplay();
     this.drawPlayerPokemon();
     this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawOpponentPokemonHPIndicator();
+
+    this.drawPlayerPokemonHPIndicator();
   }
 
   drawOpponentPokemon(){
@@ -205,6 +209,7 @@ class Battle {
       this.TEXT_OFFSET_Y + this.backgroundHeight + this.upperPadding * 2
     );
 
+
     this.ctx.fillText(
       "Type / "+"Fire",
       this.TEXT_OFFSET_X + clientWidth * 0.5 + 160,
@@ -212,4 +217,98 @@ class Battle {
     );
 
   }
+
+  drawOpponentPokemonInfoBar(){
+     let width = this.battleInfoBarImage.width * 3;
+     let height = this.battleInfoBarImage.height * 3;
+
+    this.ctx.drawImage(
+      this.battleInfoBarImage,
+      clientWidth * 0.5 - width,
+      this.upperPadding * 1.5,
+      width,
+      height
+    );
+
+    this.ctx.font = "15px pkmn";
+    this.ctx.fillStyle = "#283030";
+
+      this.ctx.fillText(
+      this.opponentPokemon.name.toUpperCase(),
+      clientWidth * 0.5 - width + 20,
+      this.upperPadding * 2.2,
+    );
+    this.ctx.fillText(
+      "Lv"+this.opponentPokemon.level,
+      clientWidth * 0.5 - width + 190,
+      this.upperPadding * 2.2,
+    );
+  }
+
+  drawPlayerPokemonInfoBar(){
+    let width = this.battleInfoBarImage.width * 3;
+    let height = this.battleInfoBarImage.height * 3;
+
+   this.ctx.drawImage(
+     this.battleInfoBarImage,
+     clientWidth * 0.5 + width * 0.25,
+     this.upperPadding * 6,
+     width,
+     height
+   );
+
+   this.ctx.font = "15px pkmn";
+   this.ctx.fillStyle = "#283030";
+
+     this.ctx.fillText(
+     this.playerPokemon.name.toUpperCase(),
+     clientWidth * 0.5 + 95,
+     this.upperPadding * 7 - 15,
+   );
+   this.ctx.fillText(
+     "Lv"+this.playerPokemon.level,
+     clientWidth * 0.5 + 265,
+     this.upperPadding * 7 - 15 ,
+   );
+ }
+
+
+ drawOpponentPokemonHPIndicator(){
+  let hpLeftInPercent = (this.opponentPokemon.hitPoints - this.opponentPokemon.damageTaken) / this.opponentPokemon.hitPoints * 100;
+
+  let offsetX = 182;
+  let offsetY = 79;
+
+  let width = (this.battleHPIndicatorImage.width * 3) * (hpLeftInPercent / 100);
+     let height = this.battleHPIndicatorImage.height * 3;
+
+    this.ctx.drawImage(
+      this.battleHPIndicatorImage,
+      clientWidth * 0.5 - offsetX,
+      this.upperPadding + offsetY,
+      width,
+      height
+    );
+ }
+
+
+ 
+ drawPlayerPokemonHPIndicator(){
+
+  let hpLeftInPercent = (this.playerPokemon.hitPoints - this.playerPokemon.damageTaken) / this.playerPokemon.hitPoints * 100;
+
+  let offsetX = -196;
+  let offsetY = 304;
+
+     let width = (this.battleHPIndicatorImage.width * 3) * (hpLeftInPercent / 100);
+     let height = this.battleHPIndicatorImage.height * 3;
+
+    this.ctx.drawImage(
+      this.battleHPIndicatorImage,
+      clientWidth * 0.5 - offsetX,
+      this.upperPadding + offsetY,
+      width,
+      height
+    );
+ }
 }
