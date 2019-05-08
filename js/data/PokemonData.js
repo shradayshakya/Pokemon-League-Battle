@@ -6,7 +6,7 @@ var PokemonData = {
         defence : 280,
         level : 100,
         type : 'fire',
-        moves :['Slash', 'Flamethrower', 'Air Slash', 'Overheart']
+        moves :['Slash', 'Flamethrower', 'Air Slash', 'Overheat']
     },
 
     'Blastoise':{
