@@ -1,9 +1,11 @@
 class Player {
-  constructor(xPosition, yPosition, spriteSheet,battleImage) {
+  constructor(xPosition, yPosition, pokemonIdentifier, spriteSheet, battleImage, imageLoader) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
     this.spriteSheet = spriteSheet;
+
+    this.pokemonIdentifier = pokemonIdentifier;
 
     this.controller = new PlayerController(document);
 
@@ -11,6 +13,10 @@ class Player {
     this.scaleHeight = SCALE_HEIGHT;
 
     this.battleImage = battleImage;
+
+    this.imageLoader = imageLoader;
+
+    this.setPokemon();
 
     this.init();
   }
@@ -91,4 +97,21 @@ class Player {
       this.keyDownDuration++;
     }
   }
+
+  
+  setPokemon() {
+    let pokemonData = PokemonData[this.pokemonIdentifier];
+    this.pokemon = new Pokemon(
+      pokemonData.name,
+      pokemonData.hitPoints,
+      0,
+      pokemonData.attack,
+      pokemonData.defence,
+      pokemonData.level,
+      pokemonData.moves,
+      pokemonData.type,
+      this.imageLoader
+    );
+  }
+
 } 

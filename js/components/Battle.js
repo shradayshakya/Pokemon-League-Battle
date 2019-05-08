@@ -7,7 +7,8 @@ class Battle {
 
     this.opponent = opponent;
 
-    this.opponentPokemon = this.opponent.getPokemon();
+    this.opponentPokemon = this.opponent.pokemon;
+    this.playerPokemon = this.player.pokemon;
 
     this.viewPort = viewPort;
     this.imageLoader = imageLoader;
@@ -30,21 +31,79 @@ class Battle {
   }
 
   draw() {
-     switch(this.currentState){
-       case OPPONENT_INTRO_STATE:
-       this.drawOpponentIntro();
-     }
-    
+    switch (this.currentState) {
+      case OPPONENT_INTRO_STATE:
+        this.drawOpponentIntro();
+        break;
+
+      case PLAYER_TURN_STATE:
+        this.drawPlayerTurn();
+        break;
+    }
   }
 
-  drawOpponentIntro(){
+  drawPlayerTurn() {
     this.drawBackground();
-    
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+  }
+
+  drawOpponentPokemon(){
+    let cropSize = 64;
+    let imageWidth = cropSize * 2.5;
+    let imageHeight = cropSize * 2.5;
+    let xPosition = clientWidth * 0.5 + imageWidth ;
+    let yPosition = this.upperPadding * 2;
+    this.ctx.drawImage(
+      this.opponentPokemon.image,
+      0,
+      0,
+      cropSize,
+      cropSize,
+      xPosition,
+      yPosition,
+      imageWidth,
+      imageHeight
+    );
+  }
+
+  drawPlayerPokemon() {
+    let cropSize = 64;
+    let imageWidth = cropSize * 2.5;
+    let imageHeight = cropSize * 2.5;
+    let xPosition = clientWidth * 0.5 - imageWidth * 2;
+    let yPosition = this.backgroundHeight + this.upperPadding - imageHeight;
+    this.ctx.drawImage(
+      this.playerPokemon.image,
+      64,
+      0,
+      cropSize,
+      cropSize,
+      xPosition,
+      yPosition,
+      imageWidth,
+      imageHeight
+    );
+  }
+
+
+
+
+  drawOpponentIntro() {
+    this.drawBackground();
+
     this.drawPlayer();
 
-     this.drawOpponent();
+    this.drawOpponent();
 
-    this.drawDialogue("Trainer " + this.opponent.name + " sent", "out " + this.opponentPokemon.name + "!");
+    this.drawDialogue(
+      "Trainer " + this.opponent.name + " sent",
+      "out " + this.opponentPokemon.name + "!"
+    );
+
+    setInterval(()=>{
+      this.currentState = PLAYER_TURN_STATE;
+    },1000);
   }
 
   drawBackground() {
@@ -79,12 +138,12 @@ class Battle {
       this.TEXT_OFFSET_Y * 2 + this.backgroundHeight + this.upperPadding
     );
   }
-  
-  drawOpponent(){
+
+  drawOpponent() {
     let imageWidth = 64;
     let imageHeight = 160;
-    let xPosition =  clientWidth * 0.5 + imageWidth * 3;
-    let yPosition =  this.upperPadding * 2;
+    let xPosition = clientWidth * 0.5 + imageWidth * 3;
+    let yPosition = this.upperPadding * 2;
     this.ctx.drawImage(
       this.opponent.battleImage,
       xPosition,
@@ -94,11 +153,11 @@ class Battle {
     );
   }
 
-  drawPlayer(){
+  drawPlayer() {
     let imageWidth = 64;
     let imageHeight = 80;
-    let xPosition =  clientWidth * 0.5 - imageWidth * 4;
-    let yPosition =  this.backgroundHeight + this.upperPadding - imageHeight ;
+    let xPosition = clientWidth * 0.5 - imageWidth * 4;
+    let yPosition = this.backgroundHeight + this.upperPadding - imageHeight;
     this.ctx.drawImage(
       this.player.battleImage,
       xPosition,
