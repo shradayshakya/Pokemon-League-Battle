@@ -1,5 +1,5 @@
 class Player {
-  constructor(xPosition, yPosition, spriteSheet) {
+  constructor(xPosition, yPosition, spriteSheet,battleImage) {
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
@@ -9,6 +9,8 @@ class Player {
 
     this.scaleWidth = SCALE_WIDTH;
     this.scaleHeight = SCALE_HEIGHT;
+
+    this.battleImage = battleImage;
 
     this.init();
   }

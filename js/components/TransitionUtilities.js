@@ -45,4 +45,30 @@ class TransitionUtilities {
       this.gameWorldObject.runEngine();
     }, 2000);
   }
+
+  beforeBattle(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    let ctx = this.gameWorldObject.ctx;
+    
+    this.gameWorldObject.currentTileWorld.draw();
+
+    this.gameWorldObject.player.draw(ctx);
+
+    ctx.lineWidth = SCALE_WIDTH * 16;
+    ctx.globalAlpha = 0.6;
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(
+      clientWidth * 0.5 - this.viewPort.width * 0.5,
+      clientHeight * 0.5 - this.viewPort.width * 0.5,
+      this.viewPort.width,
+      this.viewPort.width
+    );
+    ctx.globalAlpha = 1;
+    
+    setTimeout(() => {
+      this.gameWorldObject.currentState = BATTLE_STATE;
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
 }

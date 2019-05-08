@@ -1,7 +1,13 @@
 class Battle {
-  constructor(viewPort, imageLoader, gameWorld) {
+  constructor(player, opponent, viewPort, imageLoader, gameWorld) {
     this.gameWorld = gameWorld;
     this.ctx = this.gameWorld.ctx;
+
+    this.player = player;
+
+    this.opponent = opponent;
+
+    this.opponentPokemon = this.opponent.getPokemon();
 
     this.viewPort = viewPort;
     this.imageLoader = imageLoader;
@@ -19,12 +25,26 @@ class Battle {
 
     this.TEXT_OFFSET_X = 50;
     this.TEXT_OFFSET_Y = 50;
+
+    this.currentState = OPPONENT_INTRO_STATE;
   }
 
   draw() {
-    this.drawBackground();
+     switch(this.currentState){
+       case OPPONENT_INTRO_STATE:
+       this.drawOpponentIntro();
+     }
+    
+  }
 
-    this.drawDialogue("You have a challenger");
+  drawOpponentIntro(){
+    this.drawBackground();
+    
+    this.drawPlayer();
+
+     this.drawOpponent();
+
+    this.drawDialogue("Trainer " + this.opponent.name + " sent", "out " + this.opponentPokemon.name + "!");
   }
 
   drawBackground() {
@@ -37,7 +57,7 @@ class Battle {
     );
   }
 
-  drawDialogue(text) {
+  drawDialogue(text1, text2) {
     this.ctx.drawImage(
       this.battleDialogueImage,
       clientWidth * 0.5 - this.textBoxWidth * 0.5,
@@ -48,9 +68,43 @@ class Battle {
     this.ctx.font = "15px pkmn";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(
-      text,
+      text1,
       this.TEXT_OFFSET_X + clientWidth * 0.5 - this.textBoxWidth * 0.5,
       this.TEXT_OFFSET_Y + this.backgroundHeight + this.upperPadding
+    );
+
+    this.ctx.fillText(
+      text2,
+      this.TEXT_OFFSET_X + clientWidth * 0.5 - this.textBoxWidth * 0.5,
+      this.TEXT_OFFSET_Y * 2 + this.backgroundHeight + this.upperPadding
+    );
+  }
+  
+  drawOpponent(){
+    let imageWidth = 64;
+    let imageHeight = 160;
+    let xPosition =  clientWidth * 0.5 + imageWidth * 3;
+    let yPosition =  this.upperPadding * 2;
+    this.ctx.drawImage(
+      this.opponent.battleImage,
+      xPosition,
+      yPosition,
+      imageWidth,
+      imageHeight
+    );
+  }
+
+  drawPlayer(){
+    let imageWidth = 64;
+    let imageHeight = 80;
+    let xPosition =  clientWidth * 0.5 - imageWidth * 4;
+    let yPosition =  this.backgroundHeight + this.upperPadding - imageHeight ;
+    this.ctx.drawImage(
+      this.player.battleImage,
+      xPosition,
+      yPosition,
+      imageWidth,
+      imageHeight
     );
   }
 }

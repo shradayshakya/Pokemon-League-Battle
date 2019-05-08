@@ -23,15 +23,20 @@ class GameWorld {
       Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
       Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
       this.imageLoader.images.playerSpriteSheet,
+      this.imageLoader.images.playerBattle
     );
 
     this.pokeMaps =  this.getAllMaps();
 
     this.refreshViewPortAndMap();
 
-    this.battle = new Battle(this.viewPort,this.imageLoader,this);
+    this.opponents = this.getAllOppnenets();
 
+    this.refreshOpponent();
     
+
+    this.battle = new Battle(this.player, this.currentOpponent, this.viewPort,this.imageLoader,this);
+
 
     this.transitionUtilities = new TransitionUtilities(this.viewPort, this);
 
@@ -56,6 +61,10 @@ class GameWorld {
       
       case TILE_WORLD_STATE:
       this.currentTileWorld.draw();
+      break;
+
+      case BEFORE_BATTLE_STATE:
+      this.transitionUtilities.beforeBattle();
       break;
 
       case BATTLE_STATE:
@@ -87,6 +96,10 @@ class GameWorld {
     this.currentTileWorld = new TileWorld(this.player, this.currentMap, this.viewPort, this);
   }
 
+  refreshOpponent(){
+    this.currentOpponent = this.opponents[this.currentMapIndex];
+  }
+
   updateCanvasSize() {
     clientWidth = document.documentElement.clientWidth;
     clientHeight = document.documentElement.clientHeight;
@@ -111,6 +124,18 @@ class GameWorld {
     ));
 
       return pokeMaps;
+  }
+  
+
+  getAllOppnenets(){
+    let opponents = [];
+    opponents.push(new Opponent(
+      OpponentData.Gary.name,
+      this.imageLoader.images.garyBattle,
+      OpponentData.Gary.pokemon,
+    ));
+
+    return opponents;
   }
 
 }

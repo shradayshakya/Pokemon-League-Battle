@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'pkmn';
-    src: url('../fonts/pkmn_rbygsc-webfont.woff2') format('woff2'),
-         url('../fonts/pkmn_rbygsc-webfont.woff') format('woff');
+    src: url('../fonts/pokemon-font.woff2') format('woff2'),
+         url('../fonts/pokemon-font.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 

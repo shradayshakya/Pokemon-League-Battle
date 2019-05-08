@@ -1,12 +1,11 @@
 class Opponent {
-    constructor(opponentData){
-        this.opponentData = opponentData;
+    constructor(name,battleImage, pokemonName){
+        this.name = name;
+        this.battleImage = battleImage;
+        this.pokemonName = pokemonName;
+    }
 
-        this.id = opponentData.id;
-        this.name = opponentData.name;
-        this.introMessage = opponentData.introMessage;
-        this.exitMessage = opponentData.exitMessage;
-
-        this.pokemon = opponentData.pokemon;
+    getPokemon(){
+        return PokemonData[this.pokemonName];
     }
 }
