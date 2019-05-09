@@ -38,6 +38,9 @@ class Battle {
 
     this.currentHighlightedMove = this.MOVE_A;
 
+    this.opponentMove = 0;
+    this.playerTurnFlag = true;
+
     document.onkeyup = event => this.moveController(event);
   }
 
@@ -53,8 +56,48 @@ class Battle {
 
       case PLAYER_ATTACK_STATE:
         this.drawPlayerAttack();
+        break;
+      case OPPONENT_ATTACK_STATE:
+        this.drawOpponentAttack();
     }
   }
+
+  drawOpponentAttack() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawOpponentAttackDialogue();
+
+    setTimeout(() => {
+      this.currentState = PLAYER_TURN_STATE;
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+  drawOpponentAttackDialogue(){
+    if(!this.playerTurnFlag){
+    this.opponentMove = Math.floor(Math.random() * 4);
+    this.applyDamage(this.playerPokemon, this.opponentPokemon.moves[this.opponentMove])
+    this.playerTurnFlag = true;
+    }
+
+    let message = this.getEffectivenessMessage(this.playerPokemon, this.opponentPokemon.moves[this.opponentMove].type);
+    this.drawDialogue(
+      this.opponentPokemon.name +
+        " used " +
+        this.opponentPokemon.moves[this.opponentMove].name,
+      message
+    );
+  }
+
 
   drawPlayerAttack() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
@@ -68,7 +111,16 @@ class Battle {
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
 
+    this.drawPlayerAttackDialogue();  
+ 
 
+    setTimeout(() => {
+      this.currentState = OPPONENT_ATTACK_STATE;
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+  drawPlayerAttackDialogue(){
     let message = this.getEffectivenessMessage(
       this.opponentPokemon,
       this.playerPokemon.moves[this.currentHighlightedMove].type
@@ -77,13 +129,8 @@ class Battle {
       this.playerPokemon.name +
         " used " +
         this.playerPokemon.moves[this.currentHighlightedMove].name,
-      message
+        message
     );
-
-    setTimeout(() => {
-      this.currentState = PLAYER_TURN_STATE;
-      this.gameWorldObject.runEngine();
-    }, 2000);
   }
 
   getEffectivenessMessage(pokemon, moveType) {
@@ -180,7 +227,7 @@ class Battle {
 
   drawPlayerTurn() {
     this.drawBackground();
-    
+
     this.drawOpponentPokemonHPIndicator();
     this.drawPlayerPokemonHPIndicator();
 
@@ -190,7 +237,6 @@ class Battle {
     this.drawPlayerPokemonInfoBar();
 
     this.drawMovesDisplay();
-
 
     this.drawCurrentMoveHighlighter();
   }
@@ -452,16 +498,20 @@ class Battle {
   }
 
   transitionToPlayerAttackState() {
-    this.calculateDamage(this.opponentPokemon, this.playerPokemon.moves[this.currentHighlightedMove]);
+    this.applyDamage(
+      this.opponentPokemon,
+      this.playerPokemon.moves[this.currentHighlightedMove]
+    );
     this.currentState = PLAYER_ATTACK_STATE;
+    this.playerTurnFlag = false;
   }
 
-  calculateDamage(pokemon, move){
+  applyDamage(pokemon, move) {
     let damageMultiplier = this.getEffectiveness(pokemon, move.type);
     pokemon.damageTaken = pokemon.damageTaken + move.damage * damageMultiplier;
   }
 
-  getEffectiveness(pokemon, type){
+  getEffectiveness(pokemon, type) {
     if (pokemon.isStrongAgainst(type)) {
       return 0.5;
     } else if (pokemon.isWeakAgainst(type)) {
