@@ -33,7 +33,7 @@ class TileWorld{
         else if(mapValue == 99){
           this.gameWorldObject.currentState = HEALING_STATE;
         }
-        else if(mapValue == 98 ){
+        else if(mapValue == 98 && !this.gameWorldObject.hasBattleCompleted){
           this.gameWorldObject.currentState = BEFORE_BATTLE_STATE;
         }
         else if(mapValue == this.pokeMap.exitTile){

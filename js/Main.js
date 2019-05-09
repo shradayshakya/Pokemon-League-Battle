@@ -12,6 +12,8 @@ class GameWorld {
 
     this.currentState = TILE_WORLD_STATE;
 
+    this.hasBattleCompleted = false;
+
     this.init();
   }
 
@@ -29,19 +31,9 @@ class GameWorld {
 
     this.pokeMaps = this.getAllMaps();
 
-    this.refreshViewPortAndMap();
-
     this.opponents = this.getAllOppnenets();
 
-    this.refreshOpponent();
-
-    this.battle = new Battle(
-      this.player,
-      this.currentOpponent,
-      this.viewPort,
-      this.imageLoader,
-      this
-    );
+    this.refresh();
 
     this.transitionUtilities = new TransitionUtilities(this.viewPort, this);
 
@@ -85,7 +77,17 @@ class GameWorld {
     }
   }
 
+  refresh(){
+    this.refreshViewPortAndMap();
+
+    this.refreshOpponent();
+
+    this.refreshBattle();
+  }
+
   refreshViewPortAndMap() {
+    this.hasBattleCompleted = false;
+
     this.currentMap = this.pokeMaps[this.currentMapIndex];
 
     this.viewPort = new ViewPort(
@@ -105,6 +107,16 @@ class GameWorld {
 
   refreshOpponent() {
     this.currentOpponent = this.opponents[this.currentMapIndex];
+  }
+
+  refreshBattle(){
+    this.battle = new Battle(
+      this.player,
+      this.currentOpponent,
+      this.viewPort,
+      this.imageLoader,
+      this
+    );
   }
 
   updateCanvasSize() {

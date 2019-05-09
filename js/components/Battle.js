@@ -59,88 +59,15 @@ class Battle {
         break;
       case OPPONENT_ATTACK_STATE:
         this.drawOpponentAttack();
-    }
-  }
+        break;
 
-  drawOpponentAttack() {
-    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+      case PLAYER_WIN_STATE:
+        this.drawPlayerWin();
+        break;
 
-    this.drawBackground();
-    this.drawOpponentPokemonHPIndicator();
-    this.drawPlayerPokemonHPIndicator();
-
-    this.drawPlayerPokemon();
-    this.drawOpponentPokemon();
-    this.drawOpponentPokemonInfoBar();
-    this.drawPlayerPokemonInfoBar();
-
-    this.drawOpponentAttackDialogue();
-
-    setTimeout(() => {
-      this.currentState = PLAYER_TURN_STATE;
-      this.gameWorldObject.runEngine();
-    }, 2000);
-  }
-
-  drawOpponentAttackDialogue(){
-    if(!this.playerTurnFlag){
-    this.opponentMove = Math.floor(Math.random() * 4);
-    this.applyDamage(this.playerPokemon, this.opponentPokemon.moves[this.opponentMove])
-    this.playerTurnFlag = true;
-    }
-
-    let message = this.getEffectivenessMessage(this.playerPokemon, this.opponentPokemon.moves[this.opponentMove].type);
-    this.drawDialogue(
-      this.opponentPokemon.name +
-        " used " +
-        this.opponentPokemon.moves[this.opponentMove].name,
-      message
-    );
-  }
-
-
-  drawPlayerAttack() {
-    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
-
-    this.drawBackground();
-    this.drawOpponentPokemonHPIndicator();
-    this.drawPlayerPokemonHPIndicator();
-
-    this.drawPlayerPokemon();
-    this.drawOpponentPokemon();
-    this.drawOpponentPokemonInfoBar();
-    this.drawPlayerPokemonInfoBar();
-
-    this.drawPlayerAttackDialogue();  
- 
-
-    setTimeout(() => {
-      this.currentState = OPPONENT_ATTACK_STATE;
-      this.gameWorldObject.runEngine();
-    }, 2000);
-  }
-
-  drawPlayerAttackDialogue(){
-    let message = this.getEffectivenessMessage(
-      this.opponentPokemon,
-      this.playerPokemon.moves[this.currentHighlightedMove].type
-    );
-    this.drawDialogue(
-      this.playerPokemon.name +
-        " used " +
-        this.playerPokemon.moves[this.currentHighlightedMove].name,
-        message
-    );
-  }
-
-  getEffectivenessMessage(pokemon, moveType) {
-    let effectiveness = this.getEffectiveness(pokemon, moveType);
-    if (effectiveness === 0.5) {
-      return "It's not very effective";
-    } else if (effectiveness === 1.5) {
-      return "It's super effective";
-    } else {
-      return " ";
+      case OPPONENT_WIN_STATE:
+        this.drawOpponentWin();
+        break;
     }
   }
 
@@ -162,6 +89,113 @@ class Battle {
       this.currentState = PLAYER_TURN_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
+  }
+
+  drawPlayerTurn() {
+    this.drawBackground();
+
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawMovesDisplay();
+
+    this.drawCurrentMoveHighlighter();
+  }
+
+  drawPlayerAttack() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawPlayerAttackDialogue();
+
+    setTimeout(() => {
+      if(this.opponentPokemon.hitPoints <= this.opponentPokemon.damageTaken){
+        this.currentState = PLAYER_WIN_STATE;
+      }else{
+      this.currentState = OPPONENT_ATTACK_STATE;
+      }
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+
+  drawOpponentAttack() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawOpponentAttackDialogue();
+
+    setTimeout(() => {
+      if(this.playerPokemon.hitPoints <= this.playerPokemon.damageTaken){
+        this.currentState = OPPONENT_WIN_STATE;
+      }else{
+      this.currentState = PLAYER_TURN_STATE;
+      }
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+  drawPlayerWin(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+
+    this.drawPlayer();
+
+    this.drawOpponent();
+
+    this.drawDialogue(
+      this.opponentPokemon.name + " fainted!",
+      "You have defeated "+this.opponent.name
+    );
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.hasBattleCompleted = true;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  drawOpponentWin(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+
+    this.drawPlayer();
+
+    this.drawOpponent();
+
+    this.drawDialogue(
+      this.playerPokemon.name + " fainted!",
+      this.opponent.name + " defeated you"
+    );
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.hasBattleCompleted = true;
+      this.gameWorldObject.runEngine();
+    }, 3000);
   }
 
   drawBackground() {
@@ -223,22 +257,6 @@ class Battle {
       imageWidth,
       imageHeight
     );
-  }
-
-  drawPlayerTurn() {
-    this.drawBackground();
-
-    this.drawOpponentPokemonHPIndicator();
-    this.drawPlayerPokemonHPIndicator();
-
-    this.drawPlayerPokemon();
-    this.drawOpponentPokemon();
-    this.drawOpponentPokemonInfoBar();
-    this.drawPlayerPokemonInfoBar();
-
-    this.drawMovesDisplay();
-
-    this.drawCurrentMoveHighlighter();
   }
 
   drawOpponentPokemon() {
@@ -494,6 +512,52 @@ class Battle {
             this.currentHighlightedMove = this.MOVE_B;
           }
       }
+    }
+  }
+
+  drawOpponentAttackDialogue() {
+    if (!this.playerTurnFlag) {
+      this.opponentMove = Math.floor(Math.random() * 4);
+      this.applyDamage(
+        this.playerPokemon,
+        this.opponentPokemon.moves[this.opponentMove]
+      );
+      this.playerTurnFlag = true;
+    }
+
+    let message = this.getEffectivenessMessage(
+      this.playerPokemon,
+      this.opponentPokemon.moves[this.opponentMove].type
+    );
+    this.drawDialogue(
+      this.opponentPokemon.name +
+        " used " +
+        this.opponentPokemon.moves[this.opponentMove].name,
+      message
+    );
+  }
+
+  drawPlayerAttackDialogue() {
+    let message = this.getEffectivenessMessage(
+      this.opponentPokemon,
+      this.playerPokemon.moves[this.currentHighlightedMove].type
+    );
+    this.drawDialogue(
+      this.playerPokemon.name +
+        " used " +
+        this.playerPokemon.moves[this.currentHighlightedMove].name,
+      message
+    );
+  }
+
+  getEffectivenessMessage(pokemon, moveType) {
+    let effectiveness = this.getEffectiveness(pokemon, moveType);
+    if (effectiveness === 0.5) {
+      return "It's not very effective";
+    } else if (effectiveness === 1.5) {
+      return "It's super effective";
+    } else {
+      return " ";
     }
   }
 
