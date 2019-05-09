@@ -7,7 +7,7 @@ class Player {
 
     this.pokemonIdentifier = pokemonIdentifier;
 
-    this.controller = new PlayerController(document);
+    this.controller = new Controller(document);
 
     this.scaleWidth = SCALE_WIDTH;
     this.scaleHeight = SCALE_HEIGHT;

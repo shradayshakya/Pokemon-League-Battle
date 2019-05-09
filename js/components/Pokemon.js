@@ -30,5 +30,6 @@ class Pokemon{
     this.moves[1] = MoveData[this.moves[1]];
     this.moves[2] = MoveData[this.moves[2]];
     this.moves[3] = MoveData[this.moves[3]];
+
   }
 }

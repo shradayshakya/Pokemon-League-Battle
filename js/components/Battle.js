@@ -29,7 +29,16 @@ class Battle {
     this.TEXT_OFFSET_X = 50;
     this.TEXT_OFFSET_Y = 50;
 
-    this.currentState = OPPONENT_INTRO_STATE;
+    this.currentState = PLAYER_TURN_STATE;
+
+    this.MOVE_A = 0;
+    this.MOVE_B = 1;
+    this.MOVE_C = 2;
+    this.MOVE_D = 3;
+
+    this.currentHighlightedMove = this.MOVE_A;
+
+    document.onkeyup = event => this.moveController(event);
   }
 
   draw() {
@@ -44,7 +53,6 @@ class Battle {
     }
   }
 
-
   drawOpponentIntro() {
     this.drawBackground();
 
@@ -57,9 +65,9 @@ class Battle {
       "out " + this.opponentPokemon.name + "!"
     );
 
-    setInterval(()=>{
+    setInterval(() => {
       this.currentState = PLAYER_TURN_STATE;
-    },2000);
+    }, 2000);
   }
 
   drawBackground() {
@@ -134,13 +142,15 @@ class Battle {
     this.drawOpponentPokemonHPIndicator();
 
     this.drawPlayerPokemonHPIndicator();
+
+    this.drawCurrentMoveHighlighter();
   }
 
-  drawOpponentPokemon(){
+  drawOpponentPokemon() {
     let cropSize = 64;
     let imageWidth = cropSize * 2.5;
     let imageHeight = cropSize * 2.5;
-    let xPosition = clientWidth * 0.5 + imageWidth ;
+    let xPosition = clientWidth * 0.5 + imageWidth;
     let yPosition = this.upperPadding * 2;
     this.ctx.drawImage(
       this.opponentPokemon.image,
@@ -174,7 +184,7 @@ class Battle {
     );
   }
 
-  drawMovesDisplay(){
+  drawMovesDisplay() {
     this.ctx.drawImage(
       this.battleMovesImage,
       clientWidth * 0.5 - this.textBoxWidth * 0.5,
@@ -182,7 +192,7 @@ class Battle {
       this.textBoxWidth,
       this.textBoxHeight
     );
-    
+
     this.ctx.font = "18px pkmn";
     this.ctx.fillStyle = "#283030";
     this.ctx.fillText(
@@ -209,18 +219,18 @@ class Battle {
       this.TEXT_OFFSET_Y + this.backgroundHeight + this.upperPadding * 2
     );
 
+    let moveType = this.playerPokemon.moves[this.currentHighlightedMove].type;
 
     this.ctx.fillText(
-      "Type / "+"Fire",
+      "Type / " + moveType.charAt(0).toUpperCase() + moveType.slice(1),
       this.TEXT_OFFSET_X + clientWidth * 0.5 + 160,
       this.TEXT_OFFSET_Y + this.backgroundHeight + this.upperPadding * 1.5
     );
-
   }
 
-  drawOpponentPokemonInfoBar(){
-     let width = this.battleInfoBarImage.width * 3;
-     let height = this.battleInfoBarImage.height * 3;
+  drawOpponentPokemonInfoBar() {
+    let width = this.battleInfoBarImage.width * 3;
+    let height = this.battleInfoBarImage.height * 3;
 
     this.ctx.drawImage(
       this.battleInfoBarImage,
@@ -233,54 +243,56 @@ class Battle {
     this.ctx.font = "15px pkmn";
     this.ctx.fillStyle = "#283030";
 
-      this.ctx.fillText(
+    this.ctx.fillText(
       this.opponentPokemon.name.toUpperCase(),
       clientWidth * 0.5 - width + 20,
-      this.upperPadding * 2.2,
+      this.upperPadding * 2.2
     );
     this.ctx.fillText(
-      "Lv"+this.opponentPokemon.level,
+      "Lv" + this.opponentPokemon.level,
       clientWidth * 0.5 - width + 190,
-      this.upperPadding * 2.2,
+      this.upperPadding * 2.2
     );
   }
 
-  drawPlayerPokemonInfoBar(){
+  drawPlayerPokemonInfoBar() {
     let width = this.battleInfoBarImage.width * 3;
     let height = this.battleInfoBarImage.height * 3;
 
-   this.ctx.drawImage(
-     this.battleInfoBarImage,
-     clientWidth * 0.5 + width * 0.25,
-     this.upperPadding * 6,
-     width,
-     height
-   );
+    this.ctx.drawImage(
+      this.battleInfoBarImage,
+      clientWidth * 0.5 + width * 0.25,
+      this.upperPadding * 6,
+      width,
+      height
+    );
 
-   this.ctx.font = "15px pkmn";
-   this.ctx.fillStyle = "#283030";
+    this.ctx.font = "15px pkmn";
+    this.ctx.fillStyle = "#283030";
 
-     this.ctx.fillText(
-     this.playerPokemon.name.toUpperCase(),
-     clientWidth * 0.5 + 95,
-     this.upperPadding * 7 - 15,
-   );
-   this.ctx.fillText(
-     "Lv"+this.playerPokemon.level,
-     clientWidth * 0.5 + 265,
-     this.upperPadding * 7 - 15 ,
-   );
- }
+    this.ctx.fillText(
+      this.playerPokemon.name.toUpperCase(),
+      clientWidth * 0.5 + 95,
+      this.upperPadding * 7 - 15
+    );
+    this.ctx.fillText(
+      "Lv" + this.playerPokemon.level,
+      clientWidth * 0.5 + 265,
+      this.upperPadding * 7 - 15
+    );
+  }
 
+  drawOpponentPokemonHPIndicator() {
+    let hpLeftInPercent =
+      ((this.opponentPokemon.hitPoints - this.opponentPokemon.damageTaken) /
+        this.opponentPokemon.hitPoints) *
+      100;
 
- drawOpponentPokemonHPIndicator(){
-  let hpLeftInPercent = (this.opponentPokemon.hitPoints - this.opponentPokemon.damageTaken) / this.opponentPokemon.hitPoints * 100;
+    let offsetX = 182;
+    let offsetY = 79;
 
-  let offsetX = 182;
-  let offsetY = 79;
-
-  let width = (this.battleHPIndicatorImage.width * 3) * (hpLeftInPercent / 100);
-     let height = this.battleHPIndicatorImage.height * 3;
+    let width = this.battleHPIndicatorImage.width * 3 * (hpLeftInPercent / 100);
+    let height = this.battleHPIndicatorImage.height * 3;
 
     this.ctx.drawImage(
       this.battleHPIndicatorImage,
@@ -289,19 +301,19 @@ class Battle {
       width,
       height
     );
- }
+  }
 
+  drawPlayerPokemonHPIndicator() {
+    let hpLeftInPercent =
+      ((this.playerPokemon.hitPoints - this.playerPokemon.damageTaken) /
+        this.playerPokemon.hitPoints) *
+      100;
 
- 
- drawPlayerPokemonHPIndicator(){
+    let offsetX = -196;
+    let offsetY = 304;
 
-  let hpLeftInPercent = (this.playerPokemon.hitPoints - this.playerPokemon.damageTaken) / this.playerPokemon.hitPoints * 100;
-
-  let offsetX = -196;
-  let offsetY = 304;
-
-     let width = (this.battleHPIndicatorImage.width * 3) * (hpLeftInPercent / 100);
-     let height = this.battleHPIndicatorImage.height * 3;
+    let width = this.battleHPIndicatorImage.width * 3 * (hpLeftInPercent / 100);
+    let height = this.battleHPIndicatorImage.height * 3;
 
     this.ctx.drawImage(
       this.battleHPIndicatorImage,
@@ -310,5 +322,80 @@ class Battle {
       width,
       height
     );
- }
+  }
+
+  drawCurrentMoveHighlighter() {
+    this.ctx.strokeStyle = "#19b84e";
+
+    let offsetX;
+    let offsetY;
+    switch (this.currentHighlightedMove) {
+      case this.MOVE_A:
+        offsetX = -10;
+        offsetY = -25;
+        break;
+
+      case this.MOVE_B:
+        offsetX = 320;
+        offsetY = -25;
+        break;
+
+      case this.MOVE_C:
+        offsetX = -10;
+        offsetY = 25;
+        break;
+
+      case this.MOVE_D:
+        offsetX = 320;
+        offsetY = 25;
+    }
+
+    this.ctx.rect(
+      this.TEXT_OFFSET_X +
+        clientWidth * 0.5 -
+        this.textBoxWidth * 0.5 +
+        offsetX,
+      this.TEXT_OFFSET_Y + this.backgroundHeight + this.upperPadding + offsetY,
+      240,
+      40
+    );
+    this.ctx.stroke();
+  }
+
+  moveController(event) {
+    if (this.currentState === PLAYER_TURN_STATE) {
+      switch (this.currentHighlightedMove) {
+        case this.MOVE_A:
+          if (event.keyCode === 37 || event.keyCode === 39) {
+            this.currentHighlightedMove = this.MOVE_B;
+          } else if (event.keyCode === 40 || event.keyCode === 38) {
+            this.currentHighlightedMove = this.MOVE_C;
+          }
+          break;
+
+        case this.MOVE_B:
+          if (event.keyCode === 37 || event.keyCode === 39) {
+            this.currentHighlightedMove = this.MOVE_A;
+          } else if (event.keyCode === 38 || event.keyCode === 40) {
+            this.currentHighlightedMove = this.MOVE_D;
+          }
+          break;
+
+        case this.MOVE_C:
+          if (event.keyCode === 37 || event.keyCode === 39) {
+            this.currentHighlightedMove = this.MOVE_D;
+          } else if (event.keyCode === 38 || event.keyCode === 40) {
+            this.currentHighlightedMove = this.MOVE_A;
+          }
+          break;
+
+        case this.MOVE_D:
+          if (event.keyCode === 37 || event.keyCode === 39) {
+            this.currentHighlightedMove = this.MOVE_C;
+          } else if (event.keyCode === 38 || event.keyCode === 40) {
+            this.currentHighlightedMove = this.MOVE_B;
+          }
+      }
+    }
+  }
 }
