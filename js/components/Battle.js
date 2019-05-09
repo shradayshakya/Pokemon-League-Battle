@@ -192,8 +192,7 @@ class Battle {
     );
 
     setTimeout(() => {
-      this.gameWorldObject.currentState = TILE_WORLD_STATE;
-      this.gameWorldObject.hasBattleCompleted = true;
+      this.gameWorldObject.currentState = GAMEOVER_STATE;
       this.gameWorldObject.runEngine();
     }, 3000);
   }

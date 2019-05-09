@@ -8,26 +8,13 @@ class GameWorld {
     this.canvasElement.height = document.documentElement.clientHeight;
     this.updateCanvasSize();
 
-    this.currentMapIndex = 0;
-
     this.currentState = TILE_WORLD_STATE;
-
-    this.hasBattleCompleted = false;
 
     this.init();
   }
 
   init() {
     this.imageLoader = new ImageLoader();
-
-    this.player = new Player(
-      Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
-      Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
-      "Charizard",
-      this.imageLoader.images.playerSpriteSheet,
-      this.imageLoader.images.playerBattle,
-      this.imageLoader
-    );
 
     this.resetGameComponents();
 
@@ -70,10 +57,25 @@ class GameWorld {
       case NEXT_LEVEL_STATE:
         this.transitionUtilities.nextLevel();
         break;
+
+      case GAMEOVER_STATE:
+        this.transitionUtilities.gameOver();
+        break;
     }
   }
 
-  resetGameComponents(){
+  resetGameComponents() {
+    this.currentMapIndex = 0;
+
+    this.player = new Player(
+      Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
+      Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
+      "Charizard",
+      this.imageLoader.images.playerSpriteSheet,
+      this.imageLoader.images.playerBattle,
+      this.imageLoader
+    );
+
     this.pokeMaps = this.getAllMaps();
 
     this.opponents = this.getAllOppnenets();
@@ -81,7 +83,7 @@ class GameWorld {
     this.setLevel();
   }
 
-  setLevel(){
+  setLevel() {
     this.setViewPortAndMap();
 
     this.setOpponent();
@@ -90,8 +92,6 @@ class GameWorld {
   }
 
   setViewPortAndMap() {
-    this.hasBattleCompleted = false;
-
     this.currentMap = this.pokeMaps[this.currentMapIndex];
 
     this.viewPort = new ViewPort(
@@ -113,7 +113,9 @@ class GameWorld {
     this.currentOpponent = this.opponents[this.currentMapIndex];
   }
 
-  setBattle(){
+  setBattle() {
+    this.hasBattleCompleted = false;
+
     this.battle = new Battle(
       this.player,
       this.currentOpponent,

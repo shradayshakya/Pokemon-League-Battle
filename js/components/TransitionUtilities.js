@@ -28,7 +28,7 @@ class TransitionUtilities {
   nextLevel() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
-    this.gameWorldObject.resetGameComponents();
+    this.gameWorldObject.setLevel();
 
     let ctx = this.gameWorldObject.ctx;
 
@@ -71,6 +71,28 @@ class TransitionUtilities {
     
     setTimeout(() => {
       this.gameWorldObject.currentState = BATTLE_STATE;
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+  gameOver(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    
+    let gameOverImage = this.gameWorldObject.imageLoader.images.gameOver;
+
+    let ctx = this.gameWorldObject.ctx;
+    ctx.drawImage(
+      gameOverImage,
+      clientWidth * 0.5 - SCALE_WIDTH * 2,
+      clientHeight * 0.5 - SCALE_HEIGHT * 2,
+      SCALE_WIDTH * 4,
+      SCALE_HEIGHT * 4
+    );
+
+    this.gameWorldObject.resetGameComponents();
+    setTimeout(() => {
+      this.gameWorldObject.currentState = TILE_WORLD_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
   }

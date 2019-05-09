@@ -24,6 +24,9 @@ class ImageLoader {
 
     this.loadImage("Charizard", "images/Charizard.png");
     this.loadImage("Blastoise", "images/Blastoise.png");
+
+    
+    this.loadImage("gameOver", "images/gameover.png");
     
 
     this.numberOfImages = Object.keys(this.images).length;
