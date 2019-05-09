@@ -1,7 +1,7 @@
 class Battle {
-  constructor(player, opponent, viewPort, imageLoader, gameWorld) {
-    this.gameWorld = gameWorld;
-    this.ctx = this.gameWorld.ctx;
+  constructor(player, opponent, viewPort, imageLoader, gameWorldObject) {
+    this.gameWorldObject = gameWorldObject;
+    this.ctx = this.gameWorldObject.ctx;
 
     this.player = player;
 
@@ -29,7 +29,7 @@ class Battle {
     this.TEXT_OFFSET_X = 50;
     this.TEXT_OFFSET_Y = 50;
 
-    this.currentState = PLAYER_TURN_STATE;
+    this.currentState = OPPONENT_INTRO_STATE;
 
     this.MOVE_A = 0;
     this.MOVE_B = 1;
@@ -39,6 +39,8 @@ class Battle {
     this.currentHighlightedMove = this.MOVE_A;
 
     document.onkeyup = event => this.moveController(event);
+    
+
   }
 
   draw() {
@@ -50,10 +52,52 @@ class Battle {
       case PLAYER_TURN_STATE:
         this.drawPlayerTurn();
         break;
+
+      case PLAYER_ATTACK_STATE:
+      
+        this.drawPlayerAttack();
+    }
+  }
+
+  
+  drawPlayerAttack(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.drawBackground();
+    this.drawPlayerPokemon();
+    this.drawOpponentPokemon();
+    this.drawOpponentPokemonInfoBar();
+    this.drawPlayerPokemonInfoBar();
+
+    this.drawOpponentPokemonHPIndicator();
+
+    this.drawPlayerPokemonHPIndicator();
+
+    let message = this.getEffectivenessMessage(this.opponentPokemon, this.playerPokemon.moves[this.currentHighlightedMove].type);
+    this.drawDialogue(
+      this.playerPokemon.name + " used " + this.playerPokemon.moves[this.currentHighlightedMove].name,
+      message
+    );
+
+    setTimeout(() => {
+      this.currentState = PLAYER_TURN_STATE;
+      this.gameWorldObject.runEngine();
+    }, 2000);
+  }
+
+  getEffectivenessMessage(pokemon, type){
+    if(pokemon.isStrongAgainst(type)){
+      return "It's not very effective";
+    }else if(pokemon.isWeakAgainst(type)){
+      return "It's super effective";
+    }else{
+      return " ";
     }
   }
 
   drawOpponentIntro() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
     this.drawBackground();
 
     this.drawPlayer();
@@ -65,8 +109,9 @@ class Battle {
       "out " + this.opponentPokemon.name + "!"
     );
 
-    setInterval(() => {
+    setTimeout(() => {
       this.currentState = PLAYER_TURN_STATE;
+      this.gameWorldObject.runEngine();
     }, 2000);
   }
 
@@ -133,11 +178,12 @@ class Battle {
 
   drawPlayerTurn() {
     this.drawBackground();
-    this.drawMovesDisplay();
     this.drawPlayerPokemon();
     this.drawOpponentPokemon();
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
+    
+    this.drawMovesDisplay();
 
     this.drawOpponentPokemonHPIndicator();
 
@@ -364,6 +410,9 @@ class Battle {
 
   moveController(event) {
     if (this.currentState === PLAYER_TURN_STATE) {
+      if(event.keyCode === 13 ){
+        this.transitionToPlayerAttackState();
+      }
       switch (this.currentHighlightedMove) {
         case this.MOVE_A:
           if (event.keyCode === 37 || event.keyCode === 39) {
@@ -397,5 +446,9 @@ class Battle {
           }
       }
     }
+  }
+
+  transitionToPlayerAttackState(){
+    this.currentState = PLAYER_ATTACK_STATE;
   }
 }

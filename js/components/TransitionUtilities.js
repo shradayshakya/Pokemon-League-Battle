@@ -6,6 +6,7 @@ class TransitionUtilities {
 
   healPokemon() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
     let pokeballImage = this.gameWorldObject.imageLoader.images.pokeball;
     let ctx = this.gameWorldObject.ctx;
     ctx.drawImage(

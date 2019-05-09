@@ -10,7 +10,7 @@ class GameWorld {
 
     this.currentMapIndex = 0;
 
-    this.currentState = BATTLE_STATE;
+    this.currentState = TILE_WORLD_STATE;
 
     this.init();
   }
