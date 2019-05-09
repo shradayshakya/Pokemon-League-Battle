@@ -1,13 +1,12 @@
 class Pokemon{
-  constructor(name, hitPoints, damageTaken, level, moves, type, imageLoader){
+  constructor(name, hitPoints, damageTaken, level, movesData, type, imageLoader){
     this.name = name;
     this.hitPoints = hitPoints;
     this.damageTaken = damageTaken;
     this.level = level;
-    this.moves = moves;
+    this.movesData = movesData;
     this.type = type;
     this.imageLoader = imageLoader;
-
     this.setMoves();
 
     this.image = this.imageLoader.images[name];
@@ -24,10 +23,12 @@ class Pokemon{
   }
 
   setMoves(){
-    this.moves[0] = MoveData[this.moves[0]];
-    this.moves[1] = MoveData[this.moves[1]];
-    this.moves[2] = MoveData[this.moves[2]];
-    this.moves[3] = MoveData[this.moves[3]];
+    this.moves = [];
+
+    this.moves.push(MoveData[this.movesData[0]]);
+    this.moves.push(MoveData[this.movesData[1]]);
+    this.moves.push(MoveData[this.movesData[2]]);
+    this.moves.push(MoveData[this.movesData[3]]);
 
   }
 }

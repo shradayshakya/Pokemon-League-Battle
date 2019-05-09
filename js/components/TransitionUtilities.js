@@ -9,8 +9,6 @@ class TransitionUtilities {
 
     this.gameWorldObject.player.pokemon.damageTaken = 0;
 
-    console.log(this.gameWorldObject.player.pokemon.damageTaken)
-
     let pokeballImage = this.gameWorldObject.imageLoader.images.pokeball;
     let ctx = this.gameWorldObject.ctx;
     ctx.drawImage(
@@ -30,7 +28,7 @@ class TransitionUtilities {
   nextLevel() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
-    this.gameWorldObject.refresh();
+    this.gameWorldObject.resetGameComponents();
 
     let ctx = this.gameWorldObject.ctx;
 

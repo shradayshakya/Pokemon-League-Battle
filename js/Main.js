@@ -29,11 +29,7 @@ class GameWorld {
       this.imageLoader
     );
 
-    this.pokeMaps = this.getAllMaps();
-
-    this.opponents = this.getAllOppnenets();
-
-    this.refresh();
+    this.resetGameComponents();
 
     this.transitionUtilities = new TransitionUtilities(this.viewPort, this);
 
@@ -77,15 +73,23 @@ class GameWorld {
     }
   }
 
-  refresh(){
-    this.refreshViewPortAndMap();
+  resetGameComponents(){
+    this.pokeMaps = this.getAllMaps();
 
-    this.refreshOpponent();
+    this.opponents = this.getAllOppnenets();
 
-    this.refreshBattle();
+    this.setLevel();
   }
 
-  refreshViewPortAndMap() {
+  setLevel(){
+    this.setViewPortAndMap();
+
+    this.setOpponent();
+
+    this.setBattle();
+  }
+
+  setViewPortAndMap() {
     this.hasBattleCompleted = false;
 
     this.currentMap = this.pokeMaps[this.currentMapIndex];
@@ -105,11 +109,11 @@ class GameWorld {
     );
   }
 
-  refreshOpponent() {
+  setOpponent() {
     this.currentOpponent = this.opponents[this.currentMapIndex];
   }
 
-  refreshBattle(){
+  setBattle(){
     this.battle = new Battle(
       this.player,
       this.currentOpponent,
