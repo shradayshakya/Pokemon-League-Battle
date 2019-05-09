@@ -39,8 +39,6 @@ class Battle {
     this.currentHighlightedMove = this.MOVE_A;
 
     document.onkeyup = event => this.moveController(event);
-    
-
   }
 
   draw() {
@@ -54,28 +52,31 @@ class Battle {
         break;
 
       case PLAYER_ATTACK_STATE:
-      
         this.drawPlayerAttack();
     }
   }
 
-  
-  drawPlayerAttack(){
+  drawPlayerAttack() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
     this.drawBackground();
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
     this.drawPlayerPokemon();
     this.drawOpponentPokemon();
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
 
-    this.drawOpponentPokemonHPIndicator();
 
-    this.drawPlayerPokemonHPIndicator();
-
-    let message = this.getEffectivenessMessage(this.opponentPokemon, this.playerPokemon.moves[this.currentHighlightedMove].type);
+    let message = this.getEffectivenessMessage(
+      this.opponentPokemon,
+      this.playerPokemon.moves[this.currentHighlightedMove].type
+    );
     this.drawDialogue(
-      this.playerPokemon.name + " used " + this.playerPokemon.moves[this.currentHighlightedMove].name,
+      this.playerPokemon.name +
+        " used " +
+        this.playerPokemon.moves[this.currentHighlightedMove].name,
       message
     );
 
@@ -85,12 +86,13 @@ class Battle {
     }, 2000);
   }
 
-  getEffectivenessMessage(pokemon, type){
-    if(pokemon.isStrongAgainst(type)){
+  getEffectivenessMessage(pokemon, moveType) {
+    let effectiveness = this.getEffectiveness(pokemon, moveType);
+    if (effectiveness === 0.5) {
       return "It's not very effective";
-    }else if(pokemon.isWeakAgainst(type)){
+    } else if (effectiveness === 1.5) {
       return "It's super effective";
-    }else{
+    } else {
       return " ";
     }
   }
@@ -178,16 +180,17 @@ class Battle {
 
   drawPlayerTurn() {
     this.drawBackground();
+    
+    this.drawOpponentPokemonHPIndicator();
+    this.drawPlayerPokemonHPIndicator();
+
     this.drawPlayerPokemon();
     this.drawOpponentPokemon();
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
-    
+
     this.drawMovesDisplay();
 
-    this.drawOpponentPokemonHPIndicator();
-
-    this.drawPlayerPokemonHPIndicator();
 
     this.drawCurrentMoveHighlighter();
   }
@@ -410,7 +413,7 @@ class Battle {
 
   moveController(event) {
     if (this.currentState === PLAYER_TURN_STATE) {
-      if(event.keyCode === 13 ){
+      if (event.keyCode === 13) {
         this.transitionToPlayerAttackState();
       }
       switch (this.currentHighlightedMove) {
@@ -448,7 +451,23 @@ class Battle {
     }
   }
 
-  transitionToPlayerAttackState(){
+  transitionToPlayerAttackState() {
+    this.calculateDamage(this.opponentPokemon, this.playerPokemon.moves[this.currentHighlightedMove]);
     this.currentState = PLAYER_ATTACK_STATE;
+  }
+
+  calculateDamage(pokemon, move){
+    let damageMultiplier = this.getEffectiveness(pokemon, move.type);
+    pokemon.damageTaken = pokemon.damageTaken + move.damage * damageMultiplier;
+  }
+
+  getEffectiveness(pokemon, type){
+    if (pokemon.isStrongAgainst(type)) {
+      return 0.5;
+    } else if (pokemon.isWeakAgainst(type)) {
+      return 1.5;
+    } else {
+      return 1;
+    }
   }
 }

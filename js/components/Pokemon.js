@@ -1,10 +1,8 @@
 class Pokemon{
-  constructor(name, hitPoints, damageTaken, attack, defence, level, moves, type, imageLoader){
+  constructor(name, hitPoints, damageTaken, level, moves, type, imageLoader){
     this.name = name;
     this.hitPoints = hitPoints;
     this.damageTaken = damageTaken;
-    this.attack = attack;
-    this.defence = defence;
     this.level = level;
     this.moves = moves;
     this.type = type;

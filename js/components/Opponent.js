@@ -13,8 +13,6 @@ class Opponent {
       pokemonData.name,
       pokemonData.hitPoints,
       0,
-      pokemonData.attack,
-      pokemonData.defence,
       pokemonData.level,
       pokemonData.moves,
       pokemonData.type,
