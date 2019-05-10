@@ -15,6 +15,7 @@ class GameWorld {
 
   init() {
     this.imageLoader = new ImageLoader();
+    this.audioLoader = new AudioLoader();
 
     this.resetGameComponents();
 
@@ -25,9 +26,13 @@ class GameWorld {
 
   start() {
     var intervalId = setInterval(() => {
-      if (this.imageLoader.hasAllImagesLoaded()) {
+      if (this.imageLoader.hasAllImagesLoaded() && this.audioLoader.hasAllAudiosLoaded()) {
         clearInterval(intervalId);
         this.runEngine();
+      }
+      else{
+        this.ctx.font = "20px arial";
+        this.ctx.fillText("Loading...", clientWidth * 0.5 - 10,  clientHeight * 0.5);
       }
     });
   }
@@ -36,13 +41,15 @@ class GameWorld {
     this.mainEngine = requestAnimationFrame(() => this.runEngine());
 
     this.updateCanvasSize();
-
     switch (this.currentState) {
       case TILE_WORLD_STATE:
+        this.audioLoader.play('finalRoad');
         this.currentTileWorld.draw();
         break;
 
       case BEFORE_BATTLE_STATE:
+        this.audioLoader.stop('finalRoad');
+        this.audioLoader.play('finalBattle');
         this.transitionUtilities.beforeBattle();
         break;
 
@@ -51,6 +58,8 @@ class GameWorld {
         break;
 
       case HEALING_STATE:
+      this.audioLoader.stop('finalRoad');
+      this.audioLoader.play('pokemonRecovery');
         this.transitionUtilities.healPokemon();
         break;
 
@@ -84,6 +93,7 @@ class GameWorld {
   }
 
   setLevel() {
+
     this.setViewPortAndMap();
 
     this.setOpponent();

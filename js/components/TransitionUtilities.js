@@ -50,6 +50,8 @@ class TransitionUtilities {
   }
 
   beforeBattle(){
+    
+
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
     let ctx = this.gameWorldObject.ctx;

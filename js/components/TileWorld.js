@@ -1,5 +1,5 @@
 class TileWorld{
-    constructor(player, pokeMap, viewPort , gameWorldObject) {
+    constructor(player, pokeMap, viewPort ,gameWorldObject) {
         this.player = player;
         this.pokeMap = pokeMap;
         this.viewPort = viewPort;
