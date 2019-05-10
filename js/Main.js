@@ -10,6 +10,9 @@ class GameWorld {
 
     this.currentState = MENU_STATE;
 
+    this.playerPokemon = 'Charizard';
+    this.garyPokemon = 'Blastoise';
+
     this.init();
   }
 
@@ -93,7 +96,7 @@ class GameWorld {
     this.player = new Player(
       Math.floor(clientWidth * 0.5 - SCALE_WIDTH * 0.5),
       Math.floor(clientHeight * 0.5 - SCALE_HEIGHT * 0.5),
-      "Charizard",
+      this.playerPokemon,
       this.imageLoader.images.playerSpriteSheet,
       this.imageLoader.images.playerBattle,
       this.imageLoader
@@ -182,7 +185,7 @@ class GameWorld {
       new Opponent(
         OpponentData.Gary.name,
         this.imageLoader.images.garyBattle,
-        OpponentData.Gary.pokemon,
+        this.garyPokemon,
         this.imageLoader
       )
     );

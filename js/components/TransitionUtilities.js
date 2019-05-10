@@ -91,10 +91,9 @@ class TransitionUtilities {
       SCALE_WIDTH * 4,
       SCALE_HEIGHT * 4
     );
-
-    this.gameWorldObject.resetGameComponents();
+    
     setTimeout(() => {
-      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.currentState = MENU_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
   }
