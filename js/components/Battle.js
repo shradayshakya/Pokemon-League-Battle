@@ -121,7 +121,7 @@ class Battle {
     this.drawPlayerPokemonHPIndicator();
 
     this.drawPlayerPokemon();
-    this.drawOpponentPokemon(this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
+    this.drawOpponentPokemon(this.ATTACK_X_OFFSET, -this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
 
@@ -148,7 +148,7 @@ class Battle {
     this.drawOpponentPokemonHPIndicator();
     this.drawPlayerPokemonHPIndicator();
 
-    this.drawPlayerPokemon(this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
+    this.drawPlayerPokemon(-this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
     this.drawOpponentPokemon();
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
