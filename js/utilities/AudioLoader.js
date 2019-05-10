@@ -13,6 +13,8 @@ class AudioLoader {
     this.loadAudio("victory", "audios/victory.mp3");
 
     this.loadAudio("doorOpen", "audios/dooropen.mp3");
+    
+    this.loadAudio("beep", "audios/beep.mp3");
 
     this.loadAudio("normalHit", "audios/normalhit.mp3");
     this.loadAudio("superEffectiveHit", "audios/supereffectivehit.mp3");

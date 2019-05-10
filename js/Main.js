@@ -6,6 +6,9 @@ class GameWorld {
     clientHeight = document.documentElement.clientHeight;
     this.canvasElement.width = document.documentElement.clientWidth;
     this.canvasElement.height = document.documentElement.clientHeight;
+
+    this.frameRate = 20;
+    this.loadingTime = 0;
     this.updateCanvasSize();
 
     this.currentState = MENU_STATE;
@@ -36,9 +39,10 @@ class GameWorld {
         clearInterval(intervalId);
         this.runEngine();
       } else {
+
         this.ctx.font = "20px arial";
         this.ctx.fillText(
-          "Loading...",
+          "Loading",
           clientWidth * 0.5 - 10,
           clientHeight * 0.5
         );
@@ -51,6 +55,7 @@ class GameWorld {
 
     this.updateCanvasSize();
     switch (this.currentState) {
+      
       case MENU_STATE:
       this.pokeMenu.draw();
         break;
@@ -89,7 +94,7 @@ class GameWorld {
   }
 
   resetGameComponents() {
-    this.pokeMenu = new PokeMenu(this.viewPort, this);
+    this.pokeMenu = new PokeMenu(this.viewPort, this.audioLoader, this);
 
     this.currentMapIndex = 0;
 

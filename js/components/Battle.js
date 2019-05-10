@@ -38,6 +38,10 @@ class Battle {
     this.MOVE_C = 2;
     this.MOVE_D = 3;
 
+    this.ATTACK_X_OFFSET = 25;
+    this.ATTACK_Y_OFFSET = 25;
+    this.ATTACK_OPACITY = 0.4;
+
     this.currentHighlightedMove = this.MOVE_A;
 
     this.opponentMove = 0;
@@ -117,7 +121,7 @@ class Battle {
     this.drawPlayerPokemonHPIndicator();
 
     this.drawPlayerPokemon();
-    this.drawOpponentPokemon();
+    this.drawOpponentPokemon(this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
 
@@ -139,11 +143,12 @@ class Battle {
   drawOpponentAttack() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
+
     this.drawBackground();
     this.drawOpponentPokemonHPIndicator();
     this.drawPlayerPokemonHPIndicator();
 
-    this.drawPlayerPokemon();
+    this.drawPlayerPokemon(this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
     this.drawOpponentPokemon();
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
@@ -158,7 +163,7 @@ class Battle {
       this.currentState = PLAYER_TURN_STATE;
       }
       this.gameWorldObject.runEngine();
-    }, 2000);
+    }, 2500);
   }
 
   drawPlayerWin(){
@@ -264,42 +269,47 @@ class Battle {
     );
   }
 
-  drawOpponentPokemon() {
+  drawOpponentPokemon(offsetX = 0, offsetY = 0, opacity = 1) {
     let cropSize = 64;
     let imageWidth = cropSize * 2.5;
     let imageHeight = cropSize * 2.5;
     let xPosition = clientWidth * 0.5 + imageWidth;
     let yPosition = this.upperPadding * 2;
+    this.ctx.globalAlpha = opacity;
     this.ctx.drawImage(
       this.opponentPokemon.image,
       0,
       0,
       cropSize,
       cropSize,
-      xPosition,
-      yPosition,
+      xPosition + offsetX,
+      yPosition + offsetY,
       imageWidth,
       imageHeight
     );
+    this.ctx.globalAlpha = 1;
   }
 
-  drawPlayerPokemon() {
+  drawPlayerPokemon(offsetX = 0, offsetY = 0, opacity = 1) {
     let cropSize = 64;
     let imageWidth = cropSize * 2.5;
     let imageHeight = cropSize * 2.5;
     let xPosition = clientWidth * 0.5 - imageWidth * 2;
     let yPosition = this.backgroundHeight + this.upperPadding - imageHeight;
+
+    this.ctx.globalAlpha = opacity;
     this.ctx.drawImage(
       this.playerPokemon.image,
       64,
       0,
       cropSize,
       cropSize,
-      xPosition,
-      yPosition,
+      xPosition + offsetX,
+      yPosition + offsetY,
       imageWidth,
       imageHeight
     );
+    this.ctx.globalAlpha = 1;
   }
 
   drawMovesDisplay() {
