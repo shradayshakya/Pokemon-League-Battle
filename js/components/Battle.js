@@ -1,11 +1,13 @@
 class Battle {
-  constructor(player, opponent, viewPort, imageLoader, gameWorldObject) {
+  constructor(player, opponent, viewPort, imageLoader, audioLoader, gameWorldObject) {
     this.gameWorldObject = gameWorldObject;
     this.ctx = this.gameWorldObject.ctx;
 
     this.player = player;
 
     this.opponent = opponent;
+
+    this.audioLoader = audioLoader;
 
     this.opponentPokemon = this.opponent.pokemon;
     this.playerPokemon = this.player.pokemon;
@@ -123,6 +125,8 @@ class Battle {
 
     setTimeout(() => {
       if(this.opponentPokemon.hitPoints <= this.opponentPokemon.damageTaken){
+        this.audioLoader.stop('finalBattle');
+        this.audioLoader.play('victory');
         this.currentState = PLAYER_WIN_STATE;
       }else{
       this.currentState = OPPONENT_ATTACK_STATE;
@@ -148,6 +152,7 @@ class Battle {
 
     setTimeout(() => {
       if(this.playerPokemon.hitPoints <= this.playerPokemon.damageTaken){
+        this.audioLoader.stop('finalBattle');
         this.currentState = OPPONENT_WIN_STATE;
       }else{
       this.currentState = PLAYER_TURN_STATE;
@@ -173,8 +178,9 @@ class Battle {
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
       this.gameWorldObject.hasBattleCompleted = true;
+      this.audioLoader.stop('victory');
       this.gameWorldObject.runEngine();
-    }, 3000);
+    }, 5000);
   }
 
   drawOpponentWin(){
@@ -194,7 +200,7 @@ class Battle {
     setTimeout(() => {
       this.gameWorldObject.currentState = GAMEOVER_STATE;
       this.gameWorldObject.runEngine();
-    }, 3000);
+    }, 5000);
   }
 
   drawBackground() {
@@ -524,7 +530,7 @@ class Battle {
       this.playerTurnFlag = true;
     }
 
-    let message = this.getEffectivenessMessage(
+    let message = this.getEffectivenessMessageAndPlaySound(
       this.playerPokemon,
       this.opponentPokemon.moves[this.opponentMove].type
     );
@@ -537,7 +543,7 @@ class Battle {
   }
 
   drawPlayerAttackDialogue() {
-    let message = this.getEffectivenessMessage(
+    let message = this.getEffectivenessMessageAndPlaySound(
       this.opponentPokemon,
       this.playerPokemon.moves[this.currentHighlightedMove].type
     );
@@ -549,13 +555,16 @@ class Battle {
     );
   }
 
-  getEffectivenessMessage(pokemon, moveType) {
+  getEffectivenessMessageAndPlaySound(pokemon, moveType) {
     let effectiveness = this.getEffectiveness(pokemon, moveType);
     if (effectiveness === 0.5) {
+      this.audioLoader.play("lessEffectiveHit");
       return "It's not very effective";
     } else if (effectiveness === 1.5) {
+      this.audioLoader.play("superEffectiveHit");
       return "It's super effective";
     } else {
+      this.audioLoader.play("normalHit");
       return " ";
     }
   }

@@ -68,6 +68,7 @@ class GameWorld {
         break;
 
       case GAMEOVER_STATE:
+        this.audioLoader.stop('finalBattle');
         this.transitionUtilities.gameOver();
         break;
     }
@@ -131,6 +132,7 @@ class GameWorld {
       this.currentOpponent,
       this.viewPort,
       this.imageLoader,
+      this.audioLoader,
       this
     );
   }

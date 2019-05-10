@@ -10,6 +10,11 @@ class AudioLoader {
       this.loadAudio("finalRoad", "audios/finalroad.mp3");
       this.loadAudio("finalBattle", "audios/finalbattle.mp3");
       this.loadAudio("pokemonRecovery", "audios/pokemonrecovery.mp3");
+      this.loadAudio("victory", "audios/victory.mp3");
+
+      this.loadAudio("normalHit", "audios/normalhit.mp3");
+      this.loadAudio("superEffectiveHit", "audios/supereffectivehit.mp3");
+      this.loadAudio("lessEffectiveHit", "audios/lesseffectivehit.mp3");
   
       this.numberOfAudios = Object.keys(this.audios).length;
     }
