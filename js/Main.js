@@ -8,7 +8,7 @@ class GameWorld {
     this.canvasElement.height = document.documentElement.clientHeight;
     this.updateCanvasSize();
 
-    this.currentState = TILE_WORLD_STATE;
+    this.currentState = MENU_STATE;
 
     this.init();
   }
@@ -48,6 +48,10 @@ class GameWorld {
 
     this.updateCanvasSize();
     switch (this.currentState) {
+      case MENU_STATE:
+      this.pokeMenu.draw();
+        break;
+
       case TILE_WORLD_STATE:
         this.audioLoader.play("finalRoad");
         this.currentTileWorld.draw();
@@ -82,6 +86,8 @@ class GameWorld {
   }
 
   resetGameComponents() {
+    this.pokeMenu = new PokeMenu(this.viewPort, this);
+
     this.currentMapIndex = 0;
 
     this.player = new Player(

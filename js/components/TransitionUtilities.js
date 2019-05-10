@@ -22,7 +22,7 @@ class TransitionUtilities {
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
       this.gameWorldObject.runEngine();
-    }, 2000);
+    }, 3000);
   }
 
   nextLevel() {

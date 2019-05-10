@@ -24,8 +24,12 @@ class ImageLoader {
 
     this.loadImage("Charizard", "images/Charizard.png");
     this.loadImage("Blastoise", "images/Blastoise.png");
+    this.loadImage("Venusaur", "images/Venusaur.png");
 
     
+    this.loadImage("logo", "images/logo.png");
+    this.loadImage("choosePokemon", "images/choosepokemon.png");
+    this.loadImage("control", "images/control.png");
     this.loadImage("gameOver", "images/gameover.png");
     
 
