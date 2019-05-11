@@ -182,7 +182,7 @@ class TransitionUtilities {
     setTimeout(() => {
       this.gameWorldObject.currentState = MENU_STATE;
       this.gameWorldObject.runEngine();
-    }, 4245);
+    }, 4240);
   }
 
   gameOver() {

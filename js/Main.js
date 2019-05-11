@@ -57,8 +57,8 @@ class GameWorld {
         if (this.count > 50) {
           this.ctx.font = "15px sans-serif";
           this.ctx.fillText(
-            "Net too slow?? It is gonna take a little bit longer",
-            clientWidth * 0.5 - 100,
+            "Net too slow?? Please wait for a while",
+            clientWidth * 0.5 - 125,
             clientHeight * 0.5 + 40
           );
         }
