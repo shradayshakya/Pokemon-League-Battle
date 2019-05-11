@@ -2,6 +2,13 @@ class TransitionUtilities {
   constructor(viewPort, gameWorldObject) {
     this.viewPort = viewPort;
     this.gameWorldObject = gameWorldObject;
+
+    this.textBoxWidth = this.viewPort.width * 0.6;
+    this.textBoxHeight = this.viewPort.height * 0.2;
+    this.TEXT_OFFSET_X = 50;
+    this.TEXT_OFFSET_Y = 40;
+    this.boxUpperPadding = this.viewPort.height * 0.7 + 50;
+
   }
 
   healPokemon() {
@@ -18,6 +25,19 @@ class TransitionUtilities {
       SCALE_WIDTH * 2,
       SCALE_HEIGHT * 2
     );
+    
+    setTimeout(() => {
+      this.gameWorldObject.currentState = HEALING_DIALOGUE_STATE;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  healDialogue() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.gameWorldObject.currentTileWorld.draw();
+
+    this.drawDialogue("Your "+this.gameWorldObject.playerPokemon+" has been fully recovered!","");
     
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
@@ -97,4 +117,35 @@ class TransitionUtilities {
       this.gameWorldObject.runEngine();
     }, 2000);
   }
+
+
+  drawDialogue(text1, text2) {
+    
+    let worldDialogue = this.gameWorldObject.imageLoader.images.worldDialogue;
+
+    let ctx = this.gameWorldObject.ctx;
+
+    ctx.drawImage(
+      worldDialogue,
+      clientWidth * 0.5 - this.textBoxWidth * 0.5,
+      this.boxUpperPadding,
+      this.textBoxWidth,
+      this.textBoxHeight
+    );
+    ctx.font = "25px sans-serif";
+    ctx.fillStyle = "#606060";
+    ctx.fillText(
+      text1,
+      this.TEXT_OFFSET_X + clientWidth * 0.5 - this.textBoxWidth * 0.5,
+      this.TEXT_OFFSET_Y + this.boxUpperPadding
+    );
+
+    ctx.fillText(
+      text2,
+      this.TEXT_OFFSET_X + clientWidth * 0.5 - this.textBoxWidth * 0.5,
+      this.TEXT_OFFSET_Y * 1.9 + this.boxUpperPadding
+    );
+  }
 }
+
+

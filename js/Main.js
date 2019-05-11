@@ -14,8 +14,8 @@ class GameWorld {
 
     this.currentState = MENU_STATE;
 
-    this.playerPokemon = 'Charizard';
-    this.garyPokemon = 'Blastoise';
+    this.playerPokemon = "Charizard";
+    this.garyPokemon = "Blastoise";
 
     this.init();
   }
@@ -42,26 +42,26 @@ class GameWorld {
       } else {
         this.loadingTime++;
 
-        if(this.loadingTime % this.frameRate == 1) this.count++;
-    
+        if (this.loadingTime % this.frameRate == 1) this.count++;
+
         this.ctx.clearRect(0, 0, clientWidth, clientHeight);
         this.ctx.font = "20px sans-serif";
         this.ctx.fillText(
           "Loading" + ".".repeat(this.count % 5),
           clientWidth * 0.5 - 10,
           clientHeight * 0.5
-        )
+        );
 
-        if(this.count > 50){
+        if (this.count > 50) {
           this.ctx.font = "10px sans-serif";
           this.ctx.fillText(
             "Net too slow?? It is gonna take a little bit longer",
             clientWidth * 0.5 - 80,
             clientHeight * 0.5 + 50
-          )
+          );
         }
 
-        if(this.count > 500){
+        if (this.count > 500) {
           location.reload();
         }
       }
@@ -73,9 +73,8 @@ class GameWorld {
 
     this.updateCanvasSize();
     switch (this.currentState) {
-      
       case MENU_STATE:
-      this.pokeMenu.draw();
+        this.pokeMenu.draw();
         break;
 
       case TILE_WORLD_STATE:
@@ -97,6 +96,10 @@ class GameWorld {
         this.audioLoader.stop("finalRoad");
         this.audioLoader.play("pokemonRecovery");
         this.transitionUtilities.healPokemon();
+        break;
+
+      case HEALING_DIALOGUE_STATE:
+        this.transitionUtilities.healDialogue();
         break;
 
       case NEXT_LEVEL_STATE:

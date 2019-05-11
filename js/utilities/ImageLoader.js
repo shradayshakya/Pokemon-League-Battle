@@ -22,6 +22,10 @@ class ImageLoader {
     this.loadImage("battleInfoBar", "images/battle-info-bar.png");
     this.loadImage("battleHPIndicator", "images/battle-hitpoints.png");
 
+    
+    this.loadImage("worldDialogue", "images/world-dialogue.png");
+    
+
     this.loadImage("Charizard", "images/Charizard.png");
     this.loadImage("Blastoise", "images/Blastoise.png");
     this.loadImage("Venusaur", "images/Venusaur.png");
