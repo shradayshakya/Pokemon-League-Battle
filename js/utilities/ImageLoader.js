@@ -11,6 +11,22 @@ class ImageLoader {
     this.loadImage("garyTile", "images/gary-tile.png");
     this.loadImage("garyBattle", "images/gary-battle.png");
 
+    this.loadImage("loreleiTileSheet", "images/lorelei-tileset.png");
+    this.loadImage("loreleiTile", "images/lorelei-tile.png");
+    this.loadImage("loreleiBattle", "images/lorelei-battle.png");
+
+    this.loadImage("brunoTileSheet", "images/bruno-tileset.png");
+    this.loadImage("brunoTile", "images/bruno-tile.png");
+    this.loadImage("brunoBattle", "images/bruno-battle.png");
+
+    this.loadImage("agathaTileSheet", "images/agatha-tileset.png");
+    this.loadImage("agathaTile", "images/agatha-tile.png");
+    this.loadImage("agathaBattle", "images/agatha-battle.png");
+
+    this.loadImage("lanceTileSheet", "images/lance-tileset.png");
+    this.loadImage("lanceTile", "images/lance-tile.png");
+    this.loadImage("lanceBattle", "images/lance-battle.png");
+
     this.loadImage("playerSpriteSheet", "images/player.png");
     this.loadImage("playerBattle", "images/player-battle.png");
 
@@ -29,6 +45,10 @@ class ImageLoader {
     this.loadImage("Charizard", "images/Charizard.png");
     this.loadImage("Blastoise", "images/Blastoise.png");
     this.loadImage("Venusaur", "images/Venusaur.png");
+    this.loadImage("Jynx", "images/Jynx.png");
+    this.loadImage("Machamp", "images/Machamp.png");
+    this.loadImage("Genger", "images/Gengar.png");
+    this.loadImage("Dragonite", "images/Dragonite.png");
 
     
     this.loadImage("logo", "images/logo.png");

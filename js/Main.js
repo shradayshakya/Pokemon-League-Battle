@@ -17,6 +17,8 @@ class GameWorld {
     this.playerPokemon = "Charizard";
     this.garyPokemon = "Blastoise";
 
+    this.hasLevelBeenChanged = false;
+
     this.init();
   }
 
@@ -215,17 +217,43 @@ class GameWorld {
       )
     );
 
+    
+    pokeMaps.push(
+      new PokeMap(
+        MapData.room.tileArray,
+        MapData.room.numberOfRows,
+        MapData.room.numberOfColumns,
+        MapData.room.secondWalkableTileValue,
+        MapData.room.exitTileValue,
+        MapData.room.initialViewportX,
+        MapData.room.initialViewportY,
+        this.imageLoader.images.loreleiTileSheet,
+        this.imageLoader.images.loreleiTile
+      )
+    );
+
     return pokeMaps;
   }
 
   getAllOppnenets() {
     let opponents = [];
+  
     opponents.push(
       new Opponent(
         OpponentData.Gary.name,
         this.imageLoader.images.garyBattle,
         this.garyPokemon,
         OpponentData.Gary.password,
+        this.imageLoader
+      )
+    );
+
+    opponents.push(
+      new Opponent(
+        OpponentData.Lorelei.name,
+        this.imageLoader.images.loreleiBattle,
+        OpponentData.Lorelei.pokemon,
+        OpponentData.Lorelei.password,
         this.imageLoader
       )
     );

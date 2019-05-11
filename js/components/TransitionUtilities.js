@@ -71,7 +71,7 @@ class TransitionUtilities {
       "The password is " + this.gameWorldObject.currentOpponent.password,
       ""
     );
-
+    this.gameWorldObject.hasLevelBeenChanged = false;
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
       this.gameWorldObject.runEngine();
@@ -93,8 +93,12 @@ class TransitionUtilities {
 
   nextLevel() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
-
-    this.gameWorldObject.setLevel();
+    
+    if(!this.gameWorldObject.hasLevelBeenChanged){
+      this.gameWorldObject.currentMapIndex = (this.gameWorldObject.currentMapIndex + 1) % 2;
+      this.gameWorldObject.setLevel();
+      this.gameWorldObject.hasLevelBeenChanged = true;
+    }
 
     let ctx = this.gameWorldObject.ctx;
 
