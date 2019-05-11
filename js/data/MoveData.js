@@ -130,7 +130,7 @@ var MoveData = {
         name: 'Thunder Punch',
         damage: 75,
         accuracy: 100,
-        type: ''
+        type: 'electric'
     },
     
     'Superpower':{
