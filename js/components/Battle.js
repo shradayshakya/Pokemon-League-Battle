@@ -266,10 +266,10 @@ class Battle {
   }
 
   drawOpponent() {
-    let imageWidth = 64;
-    let imageHeight = 160;
-    let xPosition = clientWidth * 0.5 + imageWidth * 3;
-    let yPosition = this.upperPadding * 2;
+    let imageWidth = 150;
+    let imageHeight = 152;
+    let xPosition = clientWidth * 0.5 + imageWidth ;
+    let yPosition = this.upperPadding * 2.3;
     this.ctx.drawImage(
       this.opponent.battleImage,
       xPosition,
