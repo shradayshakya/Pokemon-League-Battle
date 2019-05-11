@@ -52,16 +52,16 @@ class GameWorld {
           clientHeight * 0.5
         )
 
-        if(this.count > 500){
+        if(this.count > 100){
           this.ctx.font = "10px sans-serif";
           this.ctx.fillText(
-            "Net too slow? It is gonna take a little bit longer",
+            "Net too slow?? It is gonna take a little bit longer",
             clientWidth * 0.5 - 10,
             clientHeight * 0.5
           )
         }
 
-        if(this.count > 5000){
+        if(this.count > 1000){
           location.reload();
         }
       }
