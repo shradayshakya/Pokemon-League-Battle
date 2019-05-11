@@ -42,7 +42,7 @@ class GameWorld {
       } else {
         this.loadingTime++;
 
-        if(this.loadingTime % this.frameRate == 1) this.count++;d
+        if(this.loadingTime % this.frameRate == 1) this.count++;
     
         this.ctx.clearRect(0, 0, clientWidth, clientHeight);
         this.ctx.font = "20px sans-serif";
