@@ -1,9 +1,10 @@
 class Opponent {
-  constructor(name, battleImage, pokemonIdentifier, password, imageLoader) {
+  constructor(name, battleImage, pokemonIdentifier, messageA, messageB, imageLoader) {
     this.name = name;
     this.battleImage = battleImage;
     this.pokemonIdentifier = pokemonIdentifier;
-    this.password = password;
+    this.messageA = messageA;
+    this.messageB = messageB;
     this.imageLoader = imageLoader;
     this.setPokemon();
   }

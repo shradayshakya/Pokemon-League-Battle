@@ -2,30 +2,35 @@ var OpponentData = {
     'Gary':{
         name :'Gary',
         pokemon : 'Blastoise',
-        password : "NETTIRW"
+        messageA : "I need to train more!",
+        messageB : "A guy told me to enter NETTIRW to get in the building.",
     },
 
     'Lorelei':{
         name :'Lorelei',
         pokemon : 'Jynx',
-        password : "WEIVRETNI"
+        messageA : "Things shouldn't be this way!",
+        messageB : "The password is WEIVRETNI."
     },
 
     'Bruno':{
         name :'Bruno',
         pokemon : 'Machamp',
-        password : "NRETNI"
+        messageA : "How could I loose?",
+        messageB : "The keyword NRETNI will get you through."
     },
 
     'Agatha':{
         name :'Agatha',
         pokemon : 'Gengar',
-        password : "GNIDNEP"
+        messageA : "You're something special, child!",
+        messageB :"Enter GNIDNEP and move to the next stage."
     },
 
     'Lance':{
         name :'Lance',
         pokemon : 'Dragonite',
-        password : "WORG"
+        messageA : "You are a champion now!",
+        messageB : "Your true journey has just begun."
     }
 }

@@ -68,8 +68,8 @@ class TransitionUtilities {
     this.gameWorldObject.currentTileWorld.draw();
 
     this.drawDialogue(
-      "The password is " + this.gameWorldObject.currentOpponent.password,
-      ""
+      this.gameWorldObject.currentOpponent.messageA,
+      this.gameWorldObject.currentOpponent.messageB,
     );
     this.gameWorldObject.hasLevelBeenChanged = false;
     setTimeout(() => {

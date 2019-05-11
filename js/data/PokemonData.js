@@ -48,7 +48,7 @@ var PokemonData = {
     },
 
     'Dragonite':{
-        name: 'Gengar',
+        name: 'Dragonite',
         hitPoints : 386,
         level : 100,
         type : 'dragon',

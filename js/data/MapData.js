@@ -57,8 +57,8 @@ var MapData = {
         'finalRoom': {
                 numberOfRows : 12,
                 numberOfColumns : 13,
-                initialViewportX : SCALE_WIDTH * 0.5,
-                initialViewportY : SCALE_WIDTH * 10,
+                initialViewportX : -SCALE_WIDTH * 3.5,
+                initialViewportY : SCALE_WIDTH * 6,
                 secondWalkableTileValue : 0,
                 exitTileValue: 14,
                 tileArray : [    

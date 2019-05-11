@@ -201,7 +201,7 @@ class Battle {
 
     this.drawDialogue(
       this.opponentPokemon.name + " fainted!",
-      "You have defeated "+this.opponent.name
+      "You have defeated "+this.opponent.name + "."
     );
 
     setTimeout(() => {
@@ -223,7 +223,7 @@ class Battle {
 
     this.drawDialogue(
       this.playerPokemon.name + " fainted!",
-      this.opponent.name + " defeated you"
+      this.opponent.name + " defeated you" + "."
     );
 
     setTimeout(() => {
@@ -448,7 +448,7 @@ class Battle {
 
     this.ctx.drawImage(
       this.battleHPIndicatorImage,
-      clientWidth * 0.5 - offsetX,
+      clientWidth * 0.5 - offsetX - 2,
       this.upperPadding + offsetY,
       width,
       height
@@ -469,7 +469,7 @@ class Battle {
 
     this.ctx.drawImage(
       this.battleHPIndicatorImage,
-      clientWidth * 0.5 - offsetX,
+      clientWidth * 0.5 - offsetX - 1,
       this.upperPadding + offsetY,
       width,
       height

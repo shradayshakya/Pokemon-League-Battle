@@ -58,7 +58,7 @@ class GameWorld {
           this.ctx.font = "15px sans-serif";
           this.ctx.fillText(
             "Net too slow?? It is gonna take a little bit longer",
-            clientWidth * 0.5 - 80,
+            clientWidth * 0.5 - 100,
             clientHeight * 0.5 + 40
           );
         }
@@ -260,6 +260,20 @@ class GameWorld {
       )
     );
 
+    pokeMaps.push(
+      new PokeMap(
+        MapData.finalRoom.tileArray,
+        MapData.finalRoom.numberOfRows,
+        MapData.finalRoom.numberOfColumns,
+        MapData.finalRoom.secondWalkableTileValue,
+        MapData.finalRoom.exitTileValue,
+        MapData.finalRoom.initialViewportX,
+        MapData.finalRoom.initialViewportY,
+        this.imageLoader.images.lanceTileSheet,
+        this.imageLoader.images.lanceTile
+      )
+    );
+
     return pokeMaps;
   }
 
@@ -271,7 +285,8 @@ class GameWorld {
         OpponentData.Gary.name,
         this.imageLoader.images.garyBattle,
         this.garyPokemon,
-        OpponentData.Gary.password,
+        OpponentData.Gary.messageA,
+        OpponentData.Gary.messageB,
         this.imageLoader
       )
     );
@@ -281,7 +296,8 @@ class GameWorld {
         OpponentData.Lorelei.name,
         this.imageLoader.images.loreleiBattle,
         OpponentData.Lorelei.pokemon,
-        OpponentData.Lorelei.password,
+        OpponentData.Lorelei.messageA,
+        OpponentData.Lorelei.messageB,
         this.imageLoader
       )
     );
@@ -291,7 +307,8 @@ class GameWorld {
         OpponentData.Bruno.name,
         this.imageLoader.images.brunoBattle,
         OpponentData.Bruno.pokemon,
-        OpponentData.Bruno.password,
+        OpponentData.Bruno.messageA,
+        OpponentData.Bruno.messageB,
         this.imageLoader
       )
     );
@@ -301,7 +318,19 @@ class GameWorld {
         OpponentData.Agatha.name,
         this.imageLoader.images.agathaBattle,
         OpponentData.Agatha.pokemon,
-        OpponentData.Agatha.password,
+        OpponentData.Agatha.messageA,
+        OpponentData.Agatha.messageB,
+        this.imageLoader
+      )
+    );
+
+    opponents.push(
+      new Opponent(
+        OpponentData.Lance.name,
+        this.imageLoader.images.lanceBattle,
+        OpponentData.Lance.pokemon,
+        OpponentData.Lance.messageA,
+        OpponentData.Lance.messageB,
         this.imageLoader
       )
     );
