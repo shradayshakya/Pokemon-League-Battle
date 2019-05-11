@@ -26,6 +26,8 @@ class Battle {
     this.textBoxWidth = this.viewPort.width;
     this.textBoxHeight = this.viewPort.height * 0.3;
 
+    this.isPokemonLeft = false;
+
     this.upperPadding = 50;
 
     this.TEXT_OFFSET_X = 50;
@@ -38,9 +40,17 @@ class Battle {
     this.MOVE_C = 2;
     this.MOVE_D = 3;
 
-    this.ATTACK_X_OFFSET = 25;
-    this.ATTACK_Y_OFFSET = 25;
-    this.ATTACK_OPACITY = 0.4;
+
+    this.ATTACK_X_OFFSET = 30;
+    this.ATTACK_Y_OFFSET = 30;
+    this.SHAKE_OFFSET = 3;
+    this.DAMAGE_X_OFFSET = 10;
+    this.DAMAGE_Y_OFFSET = 10;
+    this.DAMAGE_OPACITY = 0.4;
+    this.directionX = -1;
+    this.hasHitSoundBeenPlayed = false;
+
+
 
     this.currentHighlightedMove = this.MOVE_A;
 
@@ -115,19 +125,26 @@ class Battle {
 
   drawPlayerAttack() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+    this.hasHitSoundBeenPlayed = false;
+
+    let intervalId = setInterval(()=>{
+    this.directionX = this.directionX * -1;
 
     this.drawBackground();
     this.drawOpponentPokemonHPIndicator();
     this.drawPlayerPokemonHPIndicator();
 
-    this.drawPlayerPokemon();
-    this.drawOpponentPokemon(this.ATTACK_X_OFFSET, -this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
+    this.drawPlayerPokemon(this.ATTACK_X_OFFSET, -this.ATTACK_Y_OFFSET);
+    this.drawOpponentPokemon(this.DAMAGE_X_OFFSET + this.SHAKE_OFFSET * this.directionX, -this.DAMAGE_Y_OFFSET, this.DAMAGE_OPACITY);
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
 
+    }, 1000/50);
+    
     this.drawPlayerAttackDialogue();
 
     setTimeout(() => {
+      clearInterval(intervalId);
       if(this.opponentPokemon.hitPoints <= this.opponentPokemon.damageTaken){
         this.audioLoader.stop('finalBattle');
         this.audioLoader.play('victory');
@@ -143,19 +160,26 @@ class Battle {
   drawOpponentAttack() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
+    this.hasHitSoundBeenPlayed = false;
+
+    let intervalId = setInterval(()=>{
+      this.directionX = this.directionX * -1;
+  
 
     this.drawBackground();
     this.drawOpponentPokemonHPIndicator();
     this.drawPlayerPokemonHPIndicator();
 
-    this.drawPlayerPokemon(-this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET, this.ATTACK_OPACITY);
-    this.drawOpponentPokemon();
+    this.drawPlayerPokemon(-this.DAMAGE_X_OFFSET + this.SHAKE_OFFSET * this.directionX, this.DAMAGE_Y_OFFSET, this.DAMAGE_OPACITY);
+    this.drawOpponentPokemon(-this.ATTACK_X_OFFSET, this.ATTACK_Y_OFFSET);
     this.drawOpponentPokemonInfoBar();
     this.drawPlayerPokemonInfoBar();
-
     this.drawOpponentAttackDialogue();
+    }, 1000/50);
+
 
     setTimeout(() => {
+      clearInterval(intervalId);
       if(this.playerPokemon.hitPoints <= this.playerPokemon.damageTaken){
         this.audioLoader.stop('finalBattle');
         this.currentState = OPPONENT_WIN_STATE;
@@ -295,7 +319,7 @@ class Battle {
     let imageWidth = cropSize * 2.5;
     let imageHeight = cropSize * 2.5;
     let xPosition = clientWidth * 0.5 - imageWidth * 2;
-    let yPosition = this.backgroundHeight + this.upperPadding - imageHeight;
+    let yPosition = this.backgroundHeight + this.upperPadding - imageHeight + this.ATTACK_Y_OFFSET;
 
     this.ctx.globalAlpha = opacity;
     this.ctx.drawImage(
@@ -540,7 +564,17 @@ class Battle {
       this.playerTurnFlag = true;
     }
 
-    let message = this.getEffectivenessMessageAndPlaySound(
+    
+    if(!this.hasHitSoundBeenPlayed){
+      this.playHitSound(
+        this.playerPokemon,
+        this.opponentPokemon.moves[this.opponentMove].type
+      );
+      this.hasHitSoundBeenPlayed = true;
+    }
+  
+
+    let message = this.getEffectivenessMessage(
       this.playerPokemon,
       this.opponentPokemon.moves[this.opponentMove].type
     );
@@ -553,7 +587,16 @@ class Battle {
   }
 
   drawPlayerAttackDialogue() {
-    let message = this.getEffectivenessMessageAndPlaySound(
+    if(!this.hasHitSoundBeenPlayed){
+      this.playHitSound(
+      this.opponentPokemon,
+      this.playerPokemon.moves[this.currentHighlightedMove].type
+      );
+      this.hasHitSoundBeenPlayed = true;
+    }
+    
+
+    let message = this.getEffectivenessMessage(
       this.opponentPokemon,
       this.playerPokemon.moves[this.currentHighlightedMove].type
     );
@@ -565,17 +608,25 @@ class Battle {
     );
   }
 
-  getEffectivenessMessageAndPlaySound(pokemon, moveType) {
+  getEffectivenessMessage(pokemon, moveType) {
+    let effectiveness = this.getEffectiveness(pokemon, moveType);
+    if (effectiveness === 0.5) {
+      return "It's not very effective";
+    } else if (effectiveness === 1.5) {
+      return "It's super effective";
+    } else {
+      return " ";
+    }
+  }
+
+  playHitSound(pokemon, moveType) {
     let effectiveness = this.getEffectiveness(pokemon, moveType);
     if (effectiveness === 0.5) {
       this.audioLoader.play("lessEffectiveHit");
-      return "It's not very effective";
     } else if (effectiveness === 1.5) {
       this.audioLoader.play("superEffectiveHit");
-      return "It's super effective";
     } else {
       this.audioLoader.play("normalHit");
-      return " ";
     }
   }
 
