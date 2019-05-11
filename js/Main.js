@@ -58,7 +58,7 @@ class GameWorld {
           this.ctx.font = "15px sans-serif";
           this.ctx.fillText(
             "Net too slow?? Please wait for a while",
-            clientWidth * 0.5 - 125,
+            clientWidth * 0.5 - 115,
             clientHeight * 0.5 + 40
           );
         }
