@@ -15,7 +15,7 @@ var MoveData = {
 
     'Air Slash':{
         name: 'Air Slash',
-        damage: 400,
+        damage: 410,
         accuracy: 95,
         type: 'flying'
     },
@@ -43,7 +43,7 @@ var MoveData = {
 
     'Skull Bash':{
         name: 'Skull Bash',
-        damage: 110,
+        damage: 120,
         accuracy: 75,
         type: 'normal'
     },
@@ -63,7 +63,6 @@ var MoveData = {
     },
 
     
-
     'Earthquake':{
         name: 'Earthquake',
         damage: 100,
@@ -73,7 +72,7 @@ var MoveData = {
 
     'Sludge Bomb':{
         name: 'Sludge Bomb',
-        damage: 90,
+        damage: 110,
         accuracy: 100,
         type: 'poison'
     },

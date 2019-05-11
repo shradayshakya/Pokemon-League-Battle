@@ -76,6 +76,7 @@ class GameWorld {
     this.updateCanvasSize();
     switch (this.currentState) {
       case MENU_STATE:
+      this.audioLoader.stop("end");
         this.pokeMenu.draw();
         break;
 
@@ -125,6 +126,15 @@ class GameWorld {
       case GAMEOVER_STATE:
         this.audioLoader.stop("finalBattle");
         this.transitionUtilities.gameOver();
+        break;
+
+      case CREDITS_STATE:
+        this.audioLoader.play("end");
+        this.transitionUtilities.afterFinalBattle();
+        break;
+
+      case THE_END_STATE:
+        this.transitionUtilities.endScene();
         break;
     }
   }
@@ -217,7 +227,6 @@ class GameWorld {
       )
     );
 
-    
     pokeMaps.push(
       new PokeMap(
         MapData.room.tileArray,
@@ -279,7 +288,7 @@ class GameWorld {
 
   getAllOppnenets() {
     let opponents = [];
-  
+
     opponents.push(
       new Opponent(
         OpponentData.Gary.name,

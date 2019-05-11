@@ -11,6 +11,7 @@ class AudioLoader {
     this.loadAudio("finalBattle", "audios/finalbattle.mp3");
     this.loadAudio("pokemonRecovery", "audios/pokemonrecovery.mp3");
     this.loadAudio("victory", "audios/victory.mp3");
+    this.loadAudio("end", "audios/end.mp3");
 
     this.loadAudio("doorOpen", "audios/dooropen.mp3");
     

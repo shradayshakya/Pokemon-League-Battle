@@ -73,7 +73,11 @@ class TransitionUtilities {
     );
     this.gameWorldObject.hasLevelBeenChanged = false;
     setTimeout(() => {
-      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      if(this.gameWorldObject.currentMapIndex === (this.gameWorldObject.getAllMaps().length - 1)){
+        this.gameWorldObject.currentState = CREDITS_STATE;
+      }else{
+       this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      }
       this.gameWorldObject.runEngine();
     }, 3000);
   }
@@ -119,6 +123,7 @@ class TransitionUtilities {
     }, 2000);
   }
 
+
   beforeBattle() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
@@ -143,6 +148,41 @@ class TransitionUtilities {
       this.gameWorldObject.currentState = BATTLE_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
+  }
+
+  
+  afterFinalBattle(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    let ctx = this.gameWorldObject.ctx;
+    ctx.font = "20px sans-serif";
+    ctx.fillText(
+      "Thank you mentors for your guidance and support.",
+      clientWidth * 0.5 - 180,
+      clientHeight * 0.5
+    );
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = THE_END_STATE;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  endScene(){
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    let ctx = this.gameWorldObject.ctx;
+    ctx.font = "50px sans-serif";
+    ctx.fillText(
+      "THE END",
+      clientWidth * 0.5 - 100,
+      clientHeight * 0.5
+    );
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = MENU_STATE;
+      this.gameWorldObject.runEngine();
+    }, 4245);
   }
 
   gameOver() {
@@ -191,4 +231,5 @@ class TransitionUtilities {
       this.TEXT_OFFSET_Y * 1.8 + this.boxUpperPadding
     );
   }
+
 }
