@@ -132,7 +132,7 @@ class TransitionUtilities {
       this.textBoxWidth,
       this.textBoxHeight
     );
-    ctx.font = "25px sans-serif";
+    ctx.font = "20px sans-serif";
     ctx.fillStyle = "#606060";
     ctx.fillText(
       text1,
@@ -143,7 +143,7 @@ class TransitionUtilities {
     ctx.fillText(
       text2,
       this.TEXT_OFFSET_X + clientWidth * 0.5 - this.textBoxWidth * 0.5,
-      this.TEXT_OFFSET_Y * 1.9 + this.boxUpperPadding
+      this.TEXT_OFFSET_Y * 1.8 + this.boxUpperPadding
     );
   }
 }
