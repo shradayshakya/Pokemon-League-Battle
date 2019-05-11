@@ -83,5 +83,117 @@ var MoveData = {
         damage: 120,
         accuracy: 85,
         type: 'grass'
+    },
+    
+    'Body Slam':{
+        name: 'Body Slam',
+        damage: 65,
+        accuracy: 100,
+        type: 'normal'
+    },
+    
+    'Psychic':{
+        name: 'Psychic',
+        damage: 90,
+        accuracy: 100,
+        type: 'psychic'
+    },
+    
+    'Ice Beam':{
+        name: 'Ice Beam',
+        damage: 90,
+        accuracy: 100,
+        type: 'ice'
+    },
+    
+    'Ice Punch':{
+        name: 'Ice Punch',
+        damage: 75,
+        accuracy: 100,
+        type: 'ice'
+    },
+    
+    'Strength':{
+        name: 'Strength',
+        damage: 80,
+        accuracy: 100,
+        type: 'fighting'
+    },
+    
+    'Rock Slide':{
+        name: 'Rock Slide',
+        damage: 75,
+        accuracy: 95,
+        type: 'rock'
+    },
+    
+    'Thunder Punch':{
+        name: 'Thunder Punch',
+        damage: 75,
+        accuracy: 100,
+        type: ''
+    },
+    
+    'Superpower':{
+        name: 'Superpower',
+        damage: 120,
+        accuracy: 100,
+        type: 'fighting'
+    },
+    
+    'Shadow Ball':{
+        name: 'Shadow Ball',
+        damage: 80,
+        accuracy: 100,
+        type: 'ghost'
+    },
+    
+    'Dark Pulse':{
+        name: 'Dark Pulse',
+        damage: 80,
+        accuracy: 100,
+        type: 'dark'
+    },
+    
+    'Dream Eater':{
+        name: 'Dream Eater',
+        damage: 100,
+        accuracy: 100,
+        type: 'psychic'
+    },
+    
+    'Sludge Bomb':{
+        name: 'Sludge Bomb',
+        damage: 90,
+        accuracy: 100,
+        type: 'poison'
+    },
+
+    'Thunder Bolt':{
+        name: 'Thunder Bolt',
+        damage: 90,
+        accuracy: 100,
+        type: 'electric'
+    },
+
+    'Dragon Pulse':{
+        name: 'Dragon Pulse',
+        damage: 90,
+        accuracy: 100,
+        type: 'dragon'
+    },
+
+    'Iron Tail':{
+        name: 'Iron Tail',
+        damage: 100,
+        accuracy: 100,
+        type: 'steel'
+    },
+
+    'Wing Attack':{
+        name: 'Wing Attack',
+        damage: 85,
+        accuracy: 100,
+        type: 'flying'
     }
 }

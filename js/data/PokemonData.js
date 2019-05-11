@@ -21,5 +21,37 @@ var PokemonData = {
         level : 100,
         type : 'grass',
         moves :['Razor Leaf', 'Earthquake', 'Sludge Bomb', 'Power Whip']
+    },
+
+    'Jynx':{
+        name: 'Jynx',
+        hitPoints : 334,
+        level : 100,
+        type : 'ice',
+        moves :['Body Slam', 'Psychic', 'Ice Beam', 'Ice Punch']
+    },
+
+    'Machamp':{
+        name: 'Machamp',
+        hitPoints : 384,
+        level : 100,
+        type : 'fighting',
+        moves :['Strength', 'Rock Slide', 'Thunder Punch', 'Superpower']
+    },
+
+    'Gengar':{
+        name: 'Gengar',
+        hitPoints : 324,
+        level : 100,
+        type : 'ghost',
+        moves :['Shadow Ball', 'Dark Pulse', 'Dream Eater', 'Sludge Bomb']
+    },
+
+    'Dragonite':{
+        name: 'Gengar',
+        hitPoints : 386,
+        level : 100,
+        type : 'dragon',
+        moves :['Thunder Bolt', 'Dragon Pulse', 'Iron Tail', 'Wing Attack']
     }
 }
