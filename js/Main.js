@@ -7,7 +7,7 @@ class GameWorld {
     this.canvasElement.width = document.documentElement.clientWidth;
     this.canvasElement.height = document.documentElement.clientHeight;
 
-    this.frameRate = 30;
+    this.frameRate = 120;
     this.count = 0;
     this.loadingTime = 0;
     this.updateCanvasSize();
@@ -41,23 +41,18 @@ class GameWorld {
         this.runEngine();
       } else {
         this.loadingTime++;
-        if(this.loadingTime % this.frameRate == 1) this.count++;
 
+        if(this.loadingTime % this.frameRate == 1) this.count++;
+    
+        this.ctx.clearRect(0, 0, clientWidth, clientHeight);
         this.ctx.font = "20px sans-serif";
         this.ctx.fillText(
           "Loading" + ".".repeat(this.count % 5),
           clientWidth * 0.5 - 10,
           clientHeight * 0.5
         )
-        this.ctx.font = "15px sans-serif";
 
-        if(this.count > 50){
-          this.ctx.fillText(
-            "Taking too long? Try reloading.",
-            clientWidth * 0.5 - 80,
-            clientHeight * 0.5 + 50
-          );
-        }
+    
         
       }
     });
