@@ -1,7 +1,7 @@
 var MoveData = {
     'Slash':{
         name: 'Slash',
-        damage: 70,
+        damage: 60,
         accuracy: 100,
         type: 'normal'
     },
@@ -15,7 +15,7 @@ var MoveData = {
 
     'Air Slash':{
         name: 'Air Slash',
-        damage: 410,
+        damage: 120,
         accuracy: 95,
         type: 'flying'
     },
