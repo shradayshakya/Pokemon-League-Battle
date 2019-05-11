@@ -47,7 +47,7 @@ class ImageLoader {
     this.loadImage("Venusaur", "images/Venusaur.png");
     this.loadImage("Jynx", "images/Jynx.png");
     this.loadImage("Machamp", "images/Machamp.png");
-    this.loadImage("Genger", "images/Gengar.png");
+    this.loadImage("Gengar", "images/Gengar.png");
     this.loadImage("Dragonite", "images/Dragonite.png");
 
     

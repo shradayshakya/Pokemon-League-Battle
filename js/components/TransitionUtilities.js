@@ -95,7 +95,7 @@ class TransitionUtilities {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
     
     if(!this.gameWorldObject.hasLevelBeenChanged){
-      this.gameWorldObject.currentMapIndex = (this.gameWorldObject.currentMapIndex + 1) % 2;
+      this.gameWorldObject.currentMapIndex = (this.gameWorldObject.currentMapIndex + 1) % this.gameWorldObject.getAllMaps().length;
       this.gameWorldObject.setLevel();
       this.gameWorldObject.hasLevelBeenChanged = true;
     }

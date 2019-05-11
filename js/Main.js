@@ -232,6 +232,34 @@ class GameWorld {
       )
     );
 
+    pokeMaps.push(
+      new PokeMap(
+        MapData.room.tileArray,
+        MapData.room.numberOfRows,
+        MapData.room.numberOfColumns,
+        MapData.room.secondWalkableTileValue,
+        MapData.room.exitTileValue,
+        MapData.room.initialViewportX,
+        MapData.room.initialViewportY,
+        this.imageLoader.images.brunoTileSheet,
+        this.imageLoader.images.brunoTile
+      )
+    );
+
+    pokeMaps.push(
+      new PokeMap(
+        MapData.room.tileArray,
+        MapData.room.numberOfRows,
+        MapData.room.numberOfColumns,
+        MapData.room.secondWalkableTileValue,
+        MapData.room.exitTileValue,
+        MapData.room.initialViewportX,
+        MapData.room.initialViewportY,
+        this.imageLoader.images.agathaTileSheet,
+        this.imageLoader.images.agathaTile
+      )
+    );
+
     return pokeMaps;
   }
 
@@ -254,6 +282,26 @@ class GameWorld {
         this.imageLoader.images.loreleiBattle,
         OpponentData.Lorelei.pokemon,
         OpponentData.Lorelei.password,
+        this.imageLoader
+      )
+    );
+
+    opponents.push(
+      new Opponent(
+        OpponentData.Bruno.name,
+        this.imageLoader.images.brunoBattle,
+        OpponentData.Bruno.pokemon,
+        OpponentData.Bruno.password,
+        this.imageLoader
+      )
+    );
+
+    opponents.push(
+      new Opponent(
+        OpponentData.Agatha.name,
+        this.imageLoader.images.agathaBattle,
+        OpponentData.Agatha.pokemon,
+        OpponentData.Agatha.password,
         this.imageLoader
       )
     );
