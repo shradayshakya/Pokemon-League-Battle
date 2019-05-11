@@ -36,8 +36,11 @@ class TileWorld{
         else if(mapValue == 98 && !this.gameWorldObject.hasBattleCompleted){
           this.gameWorldObject.currentState = BEFORE_BATTLE_STATE;
         }
+        else if(mapValue == this.pokeMap.exitTile && !this.gameWorldObject.hasBattleCompleted){
+          this.gameWorldObject.currentState = LOCKED_DIALOGUE_STATE;
+        }
         else if(mapValue == this.pokeMap.exitTile && this.gameWorldObject.hasBattleCompleted){
-          this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
+          this.gameWorldObject.currentState = ENTERING_PASSWORD_STATE; 
         }
       }
 }

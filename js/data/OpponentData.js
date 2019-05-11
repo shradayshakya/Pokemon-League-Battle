@@ -1,6 +1,7 @@
 var OpponentData = {
     'Gary':{
         name :'Gary',
-        pokemon : 'Blastoise'
+        pokemon : 'Blastoise',
+        password : "NETTIRW"
     }
 }

@@ -102,6 +102,19 @@ class GameWorld {
         this.transitionUtilities.healDialogue();
         break;
 
+      case LOCKED_DIALOGUE_STATE:
+        this.transitionUtilities.lockedDialogue();
+        break;
+
+      case OPPONENT_DIALOGUE_STATE:
+        this.transitionUtilities.opponentDialogue();
+        break;
+
+      case ENTERING_PASSWORD_STATE:
+        this.audioLoader.stop("finalRoad");
+        this.transitionUtilities.enteringPasswordDialogue();
+        break;
+
       case NEXT_LEVEL_STATE:
         this.audioLoader.play("doorOpen");
         this.transitionUtilities.nextLevel();
@@ -212,6 +225,7 @@ class GameWorld {
         OpponentData.Gary.name,
         this.imageLoader.images.garyBattle,
         this.garyPokemon,
+        OpponentData.Gary.password,
         this.imageLoader
       )
     );

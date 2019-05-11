@@ -8,7 +8,6 @@ class TransitionUtilities {
     this.TEXT_OFFSET_X = 50;
     this.TEXT_OFFSET_Y = 40;
     this.boxUpperPadding = this.viewPort.height * 0.7 + 50;
-
   }
 
   healPokemon() {
@@ -25,7 +24,7 @@ class TransitionUtilities {
       SCALE_WIDTH * 2,
       SCALE_HEIGHT * 2
     );
-    
+
     setTimeout(() => {
       this.gameWorldObject.currentState = HEALING_DIALOGUE_STATE;
       this.gameWorldObject.runEngine();
@@ -37,10 +36,57 @@ class TransitionUtilities {
 
     this.gameWorldObject.currentTileWorld.draw();
 
-    this.drawDialogue("Your "+this.gameWorldObject.playerPokemon+" has been fully recovered!","");
-    
+    this.drawDialogue(
+      "Your " +
+        this.gameWorldObject.playerPokemon +
+        " has been fully recovered!",
+      ""
+    );
+
     setTimeout(() => {
       this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  lockedDialogue() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.gameWorldObject.currentTileWorld.draw();
+
+    this.drawDialogue("The door is closed.", "Password required!");
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  opponentDialogue() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.gameWorldObject.currentTileWorld.draw();
+
+    this.drawDialogue(
+      "The password is " + this.gameWorldObject.currentOpponent.password,
+      ""
+    );
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.runEngine();
+    }, 3000);
+  }
+
+  enteringPasswordDialogue() {
+    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+
+    this.gameWorldObject.currentTileWorld.draw();
+
+    this.drawDialogue("Entering password...", " ");
+
+    setTimeout(() => {
+      this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
       this.gameWorldObject.runEngine();
     }, 3000);
   }
@@ -69,13 +115,11 @@ class TransitionUtilities {
     }, 2000);
   }
 
-  beforeBattle(){
-    
-
+  beforeBattle() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
     let ctx = this.gameWorldObject.ctx;
-    
+
     this.gameWorldObject.currentTileWorld.draw();
 
     this.gameWorldObject.player.draw(ctx);
@@ -90,17 +134,16 @@ class TransitionUtilities {
       this.viewPort.width
     );
     ctx.globalAlpha = 1;
-    
+
     setTimeout(() => {
       this.gameWorldObject.currentState = BATTLE_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
   }
 
-  gameOver(){
+  gameOver() {
     window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
 
-    
     let gameOverImage = this.gameWorldObject.imageLoader.images.gameOver;
 
     let ctx = this.gameWorldObject.ctx;
@@ -111,16 +154,14 @@ class TransitionUtilities {
       SCALE_WIDTH * 4,
       SCALE_HEIGHT * 4
     );
-    
+
     setTimeout(() => {
       this.gameWorldObject.currentState = MENU_STATE;
       this.gameWorldObject.runEngine();
     }, 2000);
   }
 
-
   drawDialogue(text1, text2) {
-    
     let worldDialogue = this.gameWorldObject.imageLoader.images.worldDialogue;
 
     let ctx = this.gameWorldObject.ctx;
@@ -147,5 +188,3 @@ class TransitionUtilities {
     );
   }
 }
-
-

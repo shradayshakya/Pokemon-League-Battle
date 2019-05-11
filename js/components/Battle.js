@@ -205,7 +205,7 @@ class Battle {
     );
 
     setTimeout(() => {
-      this.gameWorldObject.currentState = TILE_WORLD_STATE;
+      this.gameWorldObject.currentState = OPPONENT_DIALOGUE_STATE;
       this.gameWorldObject.hasBattleCompleted = true;
       this.audioLoader.stop('victory');
       this.gameWorldObject.runEngine();
