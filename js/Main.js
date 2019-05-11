@@ -42,7 +42,7 @@ class GameWorld {
       } else {
         this.loadingTime++;
 
-        if(this.loadingTime % this.frameRate == 1) this.count++;
+        if(this.loadingTime % this.frameRate == 1) this.count++;d
     
         this.ctx.clearRect(0, 0, clientWidth, clientHeight);
         this.ctx.font = "20px sans-serif";
@@ -52,8 +52,18 @@ class GameWorld {
           clientHeight * 0.5
         )
 
-    
-        
+        if(this.count > 1000){
+          this.ctx.font = "10px sans-serif";
+          this.ctx.fillText(
+            "Net too slow? It is gonna take a little bit longer",
+            clientWidth * 0.5 - 10,
+            clientHeight * 0.5
+          )
+        }
+
+        if(this.count > 5000){
+          location.reload();
+        }
       }
     });
   }
