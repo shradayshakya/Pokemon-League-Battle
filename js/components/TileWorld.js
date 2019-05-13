@@ -19,7 +19,6 @@ class TileWorld{
     }
 
 
-
     moveViewPort(){
         let movedXPosition = this.viewPort.xPosition + this.player.directionX;
         let movedYPosition = this.viewPort.yPosition + this.player.directionY;
@@ -30,11 +29,14 @@ class TileWorld{
           this.viewPort.updatePosition(movedXPosition , movedYPosition);
           this.player.moveLegs();
         }
-        else if(mapValue == 99){
+        else if(mapValue == chanseyTileValue){
           this.gameWorldObject.currentState = HEALING_STATE;
         }
-        else if(mapValue == 98 && !this.gameWorldObject.hasBattleCompleted){
+        else if(mapValue == opponentTileValue && !this.gameWorldObject.hasBattleCompleted){
           this.gameWorldObject.currentState = BEFORE_BATTLE_STATE;
+        }
+        else if(mapValue == opponentTileValue && this.gameWorldObject.hasBattleCompleted){
+          this.gameWorldObject.currentState = OPPONENT_DIALOGUE_STATE;
         }
         else if(mapValue == this.pokeMap.exitTile && !this.gameWorldObject.hasBattleCompleted){
           this.gameWorldObject.currentState = LOCKED_DIALOGUE_STATE;

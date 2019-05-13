@@ -8,6 +8,30 @@ class TransitionUtilities {
     this.TEXT_OFFSET_X = 50;
     this.TEXT_OFFSET_Y = 40;
     this.boxUpperPadding = this.viewPort.height * 0.7 + 50;
+    this.password = "";
+    this.maxPasswordLength = 7;
+    this.passwordIntervalId;
+
+    document.addEventListener('keydown',()=>{
+      if(this.gameWorldObject.currentState === ENTERING_PASSWORD_STATE) {
+        if(event.keyCode === 13){
+          if(this.password === this.gameWorldObject.currentOpponent.password){
+          this.password = "";
+          this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
+          }else{
+          this.password = "";
+          this.gameWorldObject.currentState = TILE_WORLD_STATE;
+          }
+        }else if(event.keyCode === 8 && this.password.length > 0){
+          this.password = this.password.substr(0, this.password.length - 1);
+        }
+        if(this.password.length <= 7 && event.keyCode >= 65 && event.keyCode <= 90){
+                this.password += event.key.toUpperCase();
+        }
+      }
+     
+      
+    });
   }
 
   healPokemon() {
@@ -83,16 +107,26 @@ class TransitionUtilities {
   }
 
   enteringPasswordDialogue() {
-    window.cancelAnimationFrame(this.gameWorldObject.mainEngine);
+    this.gameWorldObject.ctx.font = "20px pkmn";
+    this.gameWorldObject.ctx.fillText(
+      "ENTER PASSWORD",
+      clientWidth * 0.5 - 110,
+      clientHeight * 0.3
+    );
 
-    this.gameWorldObject.currentTileWorld.draw();
+    this.gameWorldObject.ctx.font = "30px pkmn";
+    this.gameWorldObject.ctx.fillText(
+      this.password,
+      clientWidth * 0.5 - 100,
+      clientHeight * 0.4 
+    );
+  
+  
+  
+    this.drawDialogue("Press enter to confirm and ", "backspace to delete previous character.");
 
-    this.drawDialogue("Entering password...", " ");
+    //this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
 
-    setTimeout(() => {
-      this.gameWorldObject.currentState = NEXT_LEVEL_STATE;
-      this.gameWorldObject.runEngine();
-    }, 3000);
   }
 
   nextLevel() {

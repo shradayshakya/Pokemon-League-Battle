@@ -1,20 +1,16 @@
-class Player {
+class Player extends Trainer{
   constructor(xPosition, yPosition, pokemonIdentifier, spriteSheet, battleImage, imageLoader) {
+    super(pokemonIdentifier,battleImage,imageLoader);
+
     this.xPosition = xPosition;
     this.yPosition = yPosition;
 
     this.spriteSheet = spriteSheet;
 
-    this.pokemonIdentifier = pokemonIdentifier;
-
     this.controller = new Controller(document);
 
     this.scaleWidth = SCALE_WIDTH;
     this.scaleHeight = SCALE_HEIGHT;
-
-    this.battleImage = battleImage;
-
-    this.imageLoader = imageLoader;
 
     this.setPokemon();
 
@@ -99,17 +95,6 @@ class Player {
   }
 
   
-  setPokemon() {
-    let pokemonData = PokemonData[this.pokemonIdentifier];
-    this.pokemon = new Pokemon(
-      pokemonData.name,
-      pokemonData.hitPoints,
-      0,
-      pokemonData.level,
-      pokemonData.moves,
-      pokemonData.type,
-      this.imageLoader
-    );
-  }
+
 
 } 

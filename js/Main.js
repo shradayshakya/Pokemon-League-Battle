@@ -294,6 +294,7 @@ class GameWorld {
         OpponentData.Gary.name,
         this.imageLoader.images.garyBattle,
         this.garyPokemon,
+        OpponentData.Gary.password,
         OpponentData.Gary.messageA,
         OpponentData.Gary.messageB,
         this.imageLoader
@@ -305,6 +306,7 @@ class GameWorld {
         OpponentData.Lorelei.name,
         this.imageLoader.images.loreleiBattle,
         OpponentData.Lorelei.pokemon,
+        OpponentData.Lorelei.password,
         OpponentData.Lorelei.messageA,
         OpponentData.Lorelei.messageB,
         this.imageLoader
@@ -316,6 +318,7 @@ class GameWorld {
         OpponentData.Bruno.name,
         this.imageLoader.images.brunoBattle,
         OpponentData.Bruno.pokemon,
+        OpponentData.Bruno.password,
         OpponentData.Bruno.messageA,
         OpponentData.Bruno.messageB,
         this.imageLoader
@@ -327,6 +330,7 @@ class GameWorld {
         OpponentData.Agatha.name,
         this.imageLoader.images.agathaBattle,
         OpponentData.Agatha.pokemon,
+        OpponentData.Agatha.password,
         OpponentData.Agatha.messageA,
         OpponentData.Agatha.messageB,
         this.imageLoader
@@ -338,6 +342,7 @@ class GameWorld {
         OpponentData.Lance.name,
         this.imageLoader.images.lanceBattle,
         OpponentData.Lance.pokemon,
+        OpponentData.Lance.password,
         OpponentData.Lance.messageA,
         OpponentData.Lance.messageB,
         this.imageLoader
