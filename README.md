@@ -7,4 +7,4 @@
 * minor animations
 
 ### Demo
-![Pokemon Battle Demo](demo/demo.webm)
+![Pokemon Battle Demo](demo/demo.gif)
