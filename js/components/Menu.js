@@ -1,10 +1,11 @@
 class PokeMenu {
-  constructor(viewPort,audioLoader, gameWorldObject) {
+  constructor(viewPort, audioLoader, gameWorldObject) {
     this.viewPort = viewPort;
     this.gameWorldObject = gameWorldObject;
     this.ctx = this.gameWorldObject.ctx;
     this.audioLoader = audioLoader;
     this.options = ["Charizard", "Blastoise", "Venusaur"];
+    this.eventAdded = false;
 
     this.POKEMON_A = 0;
     this.POKEMON_B = 1;
@@ -12,39 +13,48 @@ class PokeMenu {
 
     this.currentHighlightedPokemon = this.POKEMON_A;
 
-    this.controller = (event) =>{
-      if(this.gameWorldObject.currentState == MENU_STATE){
-        if(event.keyCode == 13){
+    this.controller = event => {
+      if (this.gameWorldObject.currentState == MENU_STATE) {
+        if (event.keyCode == 13) {
           this.initiateGame();
         }
         if (event.keyCode === 37) {
-          if(this.currentHighlightedPokemon != 0){
-          this.audioLoader.play("beep");
-          this.currentHighlightedPokemon =  (this.currentHighlightedPokemon - 1) % 3;
+          if (this.currentHighlightedPokemon != 0) {
+            this.audioLoader.play("beep");
+            this.currentHighlightedPokemon =
+              (this.currentHighlightedPokemon - 1) % 3;
           }
         }
         if (event.keyCode === 39) {
           this.audioLoader.play("beep");
-          if(this.currentHighlightedPokemon != 2){
-          this.currentHighlightedPokemon =  (this.currentHighlightedPokemon + 1) % 3;
+          if (this.currentHighlightedPokemon != 2) {
+            this.currentHighlightedPokemon =
+              (this.currentHighlightedPokemon + 1) % 3;
           }
         }
       }
     };
-
-    document.addEventListener("keydown", this.controller);
   }
 
-  initiateGame(){
-     this.gameWorldObject.playerPokemon = this.options[this.currentHighlightedPokemon];
-     this.gameWorldObject.garyPokemon = this.options[(this.currentHighlightedPokemon+1) % 3];
-     this.gameWorldObject.currentState = TILE_WORLD_STATE;
-     this.gameWorldObject.resetGameComponents();
-     
-     document.removeEventListener('keydown',this.controller, true);
+  initiateGame() {
+    this.gameWorldObject.playerPokemon = this.options[
+      this.currentHighlightedPokemon
+    ];
+    this.gameWorldObject.garyPokemon = this.options[
+      (this.currentHighlightedPokemon + 1) % 3
+    ];
+    this.gameWorldObject.currentState = TILE_WORLD_STATE;
+    this.gameWorldObject.resetGameComponents();
+
+    document.removeEventListener("keydown", this.controller, true);
   }
 
   draw() {
+    if (this.gameWorldObject.currentState == MENU_STATE && !this.eventAdded) {
+      document.addEventListener("keydown", this.controller, true);
+      this.eventAdded = true;
+    }
+
     this.drawLogo();
     this.drawChooseText();
 
