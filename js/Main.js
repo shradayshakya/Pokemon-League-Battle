@@ -126,6 +126,7 @@ class GameWorld {
       case GAMEOVER_STATE:
         this.audioLoader.stop("finalBattle");
         this.transitionUtilities.gameOver();
+        this.resetGameComponents();
         break;
 
       case CREDITS_STATE:
